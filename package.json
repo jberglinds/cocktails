@@ -6,10 +6,11 @@
   "author": "Jonathan Berglind <jonathan.berglind@gmail.com>, Albin Remnestål <albinre@kth.se>",
   "license": "MIT",
   "scripts": {
-      "start": "node app/index.js"
+    "start": "node app/index.js"
   },
   "dependencies": {
     "express": "^4.15.0",
+    "http": "^0.0.0",
     "socket.io": "^1.7.3"
   }
 }

@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="cocktails">
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>Cocktails</title>
+
+		<!-- Angular -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
+
+
+		<!-- Bootstrap -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
-
+		<div ng-view></div>
 	</body>
+	<script src = "js/app.js"></script>
+	<script src = "js/controllers.js"></script>
 </html>
