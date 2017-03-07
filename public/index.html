@@ -17,23 +17,34 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<a class="navbar-brand" href="#">Cocktails</a>
+			<div class="container">
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<a class="navbar-brand" href="#">Cocktails</a>
 
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
-					<li class="nav-item" ui-sref-active="active">
-						<a class="nav-link" ui-sref="welcome">Home</a>
-					</li>
-					<li class="nav-item" ui-sref-active="active">
-						<a class="nav-link" ui-sref="drinks">Drinks</a>
-					</li>
-				</ul>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item" ui-sref-active="active">
+							<a class="nav-link" ui-sref="welcome">Home</a>
+						</li>
+						<li class="nav-item" ui-sref-active="active">
+							<a class="nav-link" ui-sref="drinks">Drinks</a>
+						</li>
+						<li class="nav-item" ui-sref-active="active">
+							<a class="nav-link" ui-sref="spirits">Spirits</a>
+						</li>
+						<li class="nav-item" ui-sref-active="active">
+							<a class="nav-link" ui-sref="mixers">Mixers</a>
+						</li>
+						<li class="nav-item" ui-sref-active="active">
+							<a class="nav-link" ui-sref="events">Events</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 		</nav>
-		<div class="container">
+		<div class="container pt-2">
 			<div ui-view></div>
 		</div>
 	</body>
