@@ -3,14 +3,12 @@
 <button type="button" name="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addDrinkModal">Add new drink</button>
 <!-- TODO: Filtrering -->
 <div class="row mt-3">
-	<div class="col-6 col-md-4 col-lg-3 mb-3" ng-repeat="n in [1, 2, 3, 4, 5, 6]">
+	<div class="col-6 col-md-4 col-lg-3 mb-3" ng-repeat="drink in drinks">
 		<div class="row no-gutters">
-			<img class="img-fluid col-6" src="http://placeholder.pics/svg/200/FF9100-FF0093/FFFFFF-000000/Placeholder%20yo" alt="">
+			<img class="img-fluid col-6" ng-src="{{ drink.image }}" alt="{{ drink.name + ' image' }}">
 			<div class="col-6 pl-2">
-				<h5>Drinknamn</h5>
-				<span class="badge badge-default">Gin</span>
-				<span class="badge badge-default">Vodka</span>
-				<span class="badge badge-default">Rum</span>
+				<h5>{{ drink.name }}</h5>
+				<span class="badge badge-default badge-pill mr-1" ng-repeat="tag in drink.tags">{{ tag }}</span>
 			</div>
 		</div>
 	</div>
@@ -40,8 +38,8 @@
 					<div class="form-group d-flex flew-row justify-content-between">
 						<label class="form-label">Ingredients</label>
 						<div class="">
-							<button class="btn btn-sm btn-outline-success" ng-click="noOfIngredients = noOfIngredients+1"><i class="fa fa-plus"></i></button>
-							<button class="btn btn-sm btn-outline-danger" ng-click="noOfIngredients = noOfIngredients-1" ng-show="noOfIngredients > 0"><i class="fa fa-minus"></i></button>
+							<button class="btn btn-sm btn-success" ng-click="noOfIngredients = noOfIngredients+1"><i class="fa fa-plus"></i></button>
+							<button class="btn btn-sm btn-danger" ng-click="noOfIngredients = noOfIngredients-1" ng-show="noOfIngredients > 0"><i class="fa fa-minus"></i></button>
 						</div>
 					</div>
 					<div class="form-group row no-gutters" ng-repeat="i in range(noOfIngredients) track by $index">

@@ -11,10 +11,10 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>Bombay Sapphire</th>
-      <td>Gin</td>
-      <td>40%</td>
+    <tr ng-repeat="spirit in spirits">
+      <th>{{ spirit.name }}</th>
+      <td>{{ spirit.type }}</td>
+      <td>{{ spirit.abv + '%' }}</td>
     </tr>
   </tbody>
 </table>

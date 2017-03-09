@@ -10,9 +10,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th>Orange Juice</th>
-      <td>Juice</td>
+    <tr ng-repeat="mixer in mixers">
+      <th>{{ mixer.name }}</th>
+      <td>{{ mixer.type }}</td>
     </tr>
   </tbody>
 </table>
