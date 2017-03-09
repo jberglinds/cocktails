@@ -18,6 +18,13 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controller: 'DrinksController'
     }
 
+    let drink = {
+        name: 'drink',
+        url: '/drinks/:id',
+        templateUrl: 'views/drink.html',
+        controller: 'DrinkController'
+    }
+
     let spirits = {
         name: 'spirits',
         url: '/spirits',
@@ -41,6 +48,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider.state(welcome);
     $stateProvider.state(drinks);
+    $stateProvider.state(drink);
     $stateProvider.state(spirits);
     $stateProvider.state(mixers);
     $stateProvider.state(events);

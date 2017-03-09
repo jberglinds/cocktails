@@ -16,7 +16,7 @@ controllerModule.controller('DrinksController', ['$scope',
 				]
 			},
 			{
-				id: 1234,
+				id: 4321,
 				name: 'GT',
 				image: 'http://placeholder.pics/svg/200/FF9100-FF0093/FFFFFF-000000/GT',
 				tags: [
@@ -29,6 +29,61 @@ controllerModule.controller('DrinksController', ['$scope',
 		$scope.range = function(n) {
         	return new Array(n);
     	};
+	}
+]);
+
+controllerModule.controller('DrinkController', ['$scope', '$stateParams',
+	function($scope, $stateParams) {
+
+		// $stateParams.id
+
+		$scope.drink = {
+			id: $stateParams.id,
+			name: 'Lolly',
+			image: 'http://az659704.vo.msecnd.net/v1/image/w_462,h_800,fl_progressive,dpr_2.0/v1400602530/cocktail_blueberry_ice-1.png',
+			description: 'The absolute classic. The drink of the CS chapter.',
+			ingredients: [
+				{
+					name: "Gin",
+					amount: "2 cl"
+				},
+				{
+					name: "Vodka",
+					amount: "2 cl"
+				},
+				{
+					name: "Tequila",
+					amount: "2 cl"
+				},
+				{
+					name: "Rum",
+					amount: "2 cl"
+				},
+				{
+					name: "Triple Sec",
+					amount: "2 cl"
+				},
+				{
+					name: "Rose's Lime",
+					amount: "2 cl"
+				},
+				{
+					name: "Sugar Syrup",
+					amount: "2 cl"
+				},
+				{
+					name: "Cola",
+					amount: ""
+				}
+			],
+			tags: [
+				'Vodka',
+				'Rum',
+				'Tequila',
+				'Gin'
+			]
+		}
+
 	}
 ]);
 

@@ -4,7 +4,7 @@
 <!-- TODO: Filtrering -->
 <div class="row mt-3">
 	<div class="col-6 col-md-4 col-lg-3 mb-3" ng-repeat="drink in drinks">
-		<div class="row no-gutters">
+		<div class="row no-gutters" ui-sref="drink({id: drink.id})">
 			<img class="img-fluid col-6" ng-src="{{ drink.image }}" alt="{{ drink.name + ' image' }}">
 			<div class="col-6 pl-2">
 				<h5>{{ drink.name }}</h5>
