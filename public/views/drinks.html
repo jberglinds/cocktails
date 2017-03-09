@@ -1,15 +1,62 @@
 <h1 class="display-4">Drinks</h1>
-<p class="lead">All drinks currently available on Cocktails.<p>
+	<p class="lead">All drinks currently available on Cocktails.<p>
+	<button type="button" name="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addDrinkModal">Add new drink</button>
 <!-- TODO: Filtrering -->
 <div class="row">
 	<div class="col-6 col-md-4 col-lg-3 mb-3" ng-repeat="n in [1, 2, 3, 4, 5, 6]">
 		<div class="row no-gutters">
-			<img class="img-fluid col-6" src="http://placehold.it/300" alt="">
+			<img class="img-fluid col-6" src="http://placeholder.pics/svg/200/FF9100-FF0093/FFFFFF-000000/Placeholder%20yo" alt="">
 			<div class="col-6 pl-2">
 				<h5>Drinknamn</h5>
 				<span class="badge badge-default">Gin</span>
 				<span class="badge badge-default">Vodka</span>
 				<span class="badge badge-default">Rum</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Add drink modal -->
+<div class="modal fade" id="addDrinkModal" tabindex="-1" role="dialog" aria-labelledby="addDrinkModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="addDrinkModalLabel">Add new drink</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form>
+					<div class="form-group">
+						<input type="text" class="form-control" id="drinkName" placeholder="Drink name">
+					</div>
+					<div class="form-group">
+						<textarea class="form-control" id="drinkDescription" rows="2" placeholder="Description"></textarea>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" id="imageLink" placeholder="Link to image">
+					</div>
+					<div class="form-group d-flex flew-row justify-content-between">
+						<label class="form-label">Ingredients</label>
+						<div class="">
+							<button class="btn btn-sm btn-outline-success" ng-click="noOfIngredients = noOfIngredients+1"><i class="fa fa-plus"></i></button>
+							<button class="btn btn-sm btn-outline-danger" ng-click="noOfIngredients = noOfIngredients-1" ng-show="noOfIngredients > 0"><i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+					<div class="form-group row no-gutters" ng-repeat="i in range(noOfIngredients) track by $index">
+						<div class="col-9 pr-1">
+							<input class="form-control" type="text" id="ingredient{{$index}}" placeholder="Ingredient name">
+						</div>
+						<div class="col-3">
+							<input class="form-control" type="text" id="ingredientQuantity{{$index}}" placeholder="Amount">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-outline-success">Add</button>
 			</div>
 		</div>
 	</div>
