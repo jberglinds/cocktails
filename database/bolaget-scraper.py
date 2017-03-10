@@ -14,9 +14,13 @@ def main():
     entries = list()
 
     for url in input_links:
-        try:
 
+        try:
             page = urllib.urlopen(url).read()
+        except:
+            print "\033[91m'%s'\033[0m is not a valid url." % (url)
+
+        try:
             gazpacho = BeautifulSoup(page, "html.parser")
 
             # Get booze-name
@@ -38,16 +42,25 @@ def main():
             abv = abv.replace(',', '.')
             abv = abv.replace('%', '')
             abv = abv.replace(' ', '')
-            if len(abv) == 2:
+            if len(abv) < 3:
                 abv += '.0'
 
             # Get booze-description
-            desc = gazpacho.find('p', {'class':'description '}).text
+            gulasch = gazpacho.find('p', {'class':'description'})
 
+            if gulasch is None:
+                gulasch = gazpacho.find('p', {'class':'description '})
+            desc = gulasch.text
+
+            if gulasch is None:
+                gulasch = gazpacho.find('p', {'class':'description is-alone'})
+            desc = gulasch.text
+
+            # Write sql value set
             entries.append("(\"%s%s\", %s, \"%s\", @base_spirit_id)" % (name, subtitle, abv, desc))
 
         except:
-            print "\033[91m'%s'\033[0m is not a valid url." % (url)
+            print "\033[91m'%s'\033[0m has invalid page composition." % (url)
 
     for entry in entries[:-1]:
         print '\033[92m%s,\033[0m' % (entry)
