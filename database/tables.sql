@@ -15,7 +15,7 @@ drop table if exists spirits;
 create table spirits (
     id int not null auto_increment,
     name varchar(255) unique,
-    abv decimal(3,2),
+    abv decimal(4,2),
     description text,
     type_of_liqour int,
     primary key (id),
