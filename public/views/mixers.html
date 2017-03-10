@@ -3,6 +3,7 @@
     <p class="lead">Mixers are what goes in a drink besides the liquor. This could be juices, decoration etc.<br>Missing something? <a href="">Shoot us an email.</a></p>
     <!-- TODO: Sortable by table headers -->
     <!-- TODO: Filtering options  -->
+    <input type="text" class="form-control mb-2" placeholder="Search mixers..." autocomplete="off" ng-model="searchfilter">
     <table class="table">
         <thead>
             <tr>
@@ -11,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="mixer in mixers">
+            <tr ng-repeat="mixer in mixers | filter:searchfilter">
                 <th>{{ mixer.name }}</th>
                 <td>{{ mixer.type }}</td>
             </tr>

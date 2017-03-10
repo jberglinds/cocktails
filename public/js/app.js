@@ -1,7 +1,8 @@
-let app = angular.module('cocktails', ['ui.router', 'controllers', 'angular-loading-bar']);
+let app = angular.module('cocktails', ['ui.router', 'controllers', 'angular-loading-bar', 'ngAnimate']);
 
 app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
+    // cfpLoadingBarProvider.latencyThreshold = 0;
 }]);
 
 app.config(function($stateProvider, $urlRouterProvider) {

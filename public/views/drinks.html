@@ -2,9 +2,9 @@
 	<h1 class="display-4">Drinks</h1>
 	<p class="lead">All drinks currently available on Cocktails.</p>
 	<button type="button" name="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addDrinkModal">Add new drink</button>
-	<!-- TODO: Filtrering -->
+	<input type="text" class="form-control mb-2 mt-2" placeholder="Search drinks..." autocomplete="off" ng-model="searchfilter">
 	<div class="row mt-3">
-		<div class="col-md-6 col-lg-4 mb-3" ng-repeat="drink in drinks">
+		<div class="col-md-6 col-lg-4 mb-3" ng-repeat="drink in drinks | filter:searchfilter">
 			<div class="row no-gutters" ui-sref="drink({id: drink.id})">
 				<div class="col-6">
 					<img class="img-thumbnail" ng-src="{{ drink.image }}" alt="{{ drink.name + ' image' }}">

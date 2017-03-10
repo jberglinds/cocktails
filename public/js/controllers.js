@@ -1,8 +1,7 @@
-let controllerModule = angular.module('controllers', []);
+let controllerModule = angular.module('controllers', ['services']);
 
-controllerModule.controller('DrinksController', ['$scope',
-	function($scope) {
-
+controllerModule.controller('DrinksController', ['$scope', 'API',
+	function($scope, api) {
 		$scope.drinks = [
 			{
 				id: 1234,
@@ -91,23 +90,12 @@ controllerModule.controller('DrinkController', ['$scope', '$stateParams',
 	}
 ]);
 
-controllerModule.controller('SpiritsController', ['$scope',
-	function($scope) {
+controllerModule.controller('SpiritsController', ['$scope', 'API',
+	function($scope, api) {
 
-		$scope.spirits = [
-			{
-				id: 1234,
-				name: 'Dragon Blood',
-				type: 'Liqueur',
-				abv: 50
-			},
-			{
-				id: 1234,
-				name: 'Bombay Sapphire London Dry Gin',
-				type: 'Gin',
-				abv: 40
-			},
-		]
+		api.getSpirits().then(function(response) {
+			$scope.spirits = response.data;
+		})
 
 	}
 ]);

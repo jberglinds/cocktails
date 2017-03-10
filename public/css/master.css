@@ -2,3 +2,14 @@
 	/* Forces to min size */
 	width: 1px;
 }
+
+#loading-bar .bar {
+  background: #f00;
+}
+
+#loading-bar .peg {
+  -webkit-box-shadow: #f00 1px 0 6px 1px;
+     -moz-box-shadow: #f00 1px 0 6px 1px;
+      -ms-box-shadow: #f00 1px 0 6px 1px;
+          box-shadow: #f00 1px 0 6px 1px;
+}
