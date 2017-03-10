@@ -1,0 +1,76 @@
+<div class="jumbotron jumbotron-fluid">
+	<div class="container">
+		<div class="row align-items-center">
+			<div class="col-md-8">
+				<p class="lead mb-0">Administration</p>
+				<h1 class="display-3 mt-0">Mottagningspub</h1>
+				<p class="lead mt">Mar 10, 2017 | <i class="fa fa-key" aria-hidden="true"></i> <code>secretpassword</code></p>
+				<p class="lead mt">Description of event goes here, like onsdagspub</p>
+			</div>
+			<div class="col-md-4 text-md-right text-left">
+				<div class="">
+					<button type="button" class="btn btn-lg btn-outline-primary mb-1">Drinks</button>
+					<button type="button" class="btn btn-lg btn-outline-primary mb-1">Splash</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="d-flex justify-content-between mb-2">
+			<h3>Spirits inventory</h3>
+			<div class="">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search spirit..." autocomplete="off">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-outline-primary">Add</i></button>
+					</div>
+				</div>
+			</div>
+	</div>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Type</th>
+				<th>ABV</th>
+				<th class="button-col">Remove</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>{{ spirit.name }}</th>
+				<td>{{ spirit.type }}</td>
+				<td>{{ spirit.abv + '%' }}</td>
+				<td class="text-center"><button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="d-flex justify-content-between mb-2 mt-5">
+			<h3>Mixers inventory</h3>
+			<div class="">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search mixer..." autocomplete="off">
+					<div class="input-group-btn">
+						<button type="button" class="btn btn-outline-primary">Add</i></button>
+					</div>
+				</div>
+			</div>
+	</div>
+	<table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+				<th class="button-col">Remove</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>{{ mixer.name }}</th>
+                <td>{{ mixer.type }}</td>
+				<td class="text-center"><button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

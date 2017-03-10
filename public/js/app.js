@@ -46,12 +46,20 @@ app.config(function($stateProvider, $urlRouterProvider) {
         controller: 'EventsController'
     }
 
+    let event = {
+        name: 'event',
+        url: '/events/:id',
+        templateUrl: 'views/event.html',
+        controller: 'EventController'
+    }
+
     $stateProvider.state(welcome);
     $stateProvider.state(drinks);
     $stateProvider.state(drink);
     $stateProvider.state(spirits);
     $stateProvider.state(mixers);
     $stateProvider.state(events);
+    $stateProvider.state(event);
 
     $urlRouterProvider.otherwise('/')
 });

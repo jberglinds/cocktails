@@ -165,3 +165,10 @@ controllerModule.controller('EventsController', ['$scope',
 
 	}
 ]);
+
+controllerModule.controller('EventController', ['$scope',
+	function($scope) {
+
+
+	}
+]);
