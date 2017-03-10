@@ -1,20 +1,22 @@
-<h1 class="display-4">Spirits</h1>
-<p class="lead">Spririts available for use in drinks on Cocktails.<br>Missing something? <a href="">Shoot us an email.</a></p>
-<!-- TODO: Sortable by table headers -->
-<!-- TODO: Filtering options  -->
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>ABV</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="spirit in spirits">
-      <th>{{ spirit.name }}</th>
-      <td>{{ spirit.type }}</td>
-      <td>{{ spirit.abv + '%' }}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container mt-3">
+    <h1 class="display-4">Spirits</h1>
+    <p class="lead">Spririts available for use in drinks on Cocktails.<br>Missing something? <a href="">Shoot us an email.</a></p>
+    <!-- TODO: Sortable by table headers -->
+    <!-- TODO: Filtering options  -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>ABV</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="spirit in spirits">
+                <th>{{ spirit.name }}</th>
+                <td>{{ spirit.type }}</td>
+                <td>{{ spirit.abv + '%' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

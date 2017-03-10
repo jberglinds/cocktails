@@ -7,7 +7,7 @@ controllerModule.controller('DrinksController', ['$scope',
 			{
 				id: 1234,
 				name: 'Lolly',
-				image: 'http://placeholder.pics/svg/200/FF9100-FF0093/FFFFFF-000000/Lolly',
+				image: 'http://placeholder.pics/svg/300/FF9100-FF0093/FFFFFF-000000/Lolly',
 				tags: [
 					'Vodka',
 					'Rum',
@@ -18,7 +18,7 @@ controllerModule.controller('DrinksController', ['$scope',
 			{
 				id: 4321,
 				name: 'GT',
-				image: 'http://placeholder.pics/svg/200/FF9100-FF0093/FFFFFF-000000/GT',
+				image: 'http://placeholder.pics/svg/300/FF9100-FF0093/FFFFFF-000000/GT',
 				tags: [
 					'Gin',
 				]
@@ -40,7 +40,7 @@ controllerModule.controller('DrinkController', ['$scope', '$stateParams',
 		$scope.drink = {
 			id: $stateParams.id,
 			name: 'Lolly',
-			image: 'http://az659704.vo.msecnd.net/v1/image/w_462,h_800,fl_progressive,dpr_2.0/v1400602530/cocktail_blueberry_ice-1.png',
+			image: 'http://placeholder.pics/svg/500/FF9100-FF0093/FFFFFF-000000/Lolly',
 			description: 'The absolute classic. The drink of the CS chapter.',
 			ingredients: [
 				{
@@ -81,6 +81,10 @@ controllerModule.controller('DrinkController', ['$scope', '$stateParams',
 				'Rum',
 				'Tequila',
 				'Gin'
+			],
+			howto: [
+				"Do this, mate",
+				"Then, that, bro"
 			]
 		}
 
