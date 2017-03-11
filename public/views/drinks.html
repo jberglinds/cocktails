@@ -38,20 +38,30 @@
 						<div class="form-group">
 							<input type="text" class="form-control" id="imageLink" placeholder="Link to image">
 						</div>
-						<div class="form-group d-flex flew-row justify-content-between">
-							<label class="form-label">Ingredients</label>
-							<div class="">
+						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-0">
+							<label class="form-label col-form-label-lg">Ingredients</label>
+							<div>
 								<button class="btn btn-sm btn-success" ng-click="noOfIngredients = noOfIngredients+1"><i class="fa fa-plus"></i></button>
 								<button class="btn btn-sm btn-danger" ng-click="noOfIngredients = noOfIngredients-1" ng-show="noOfIngredients > 0"><i class="fa fa-minus"></i></button>
 							</div>
 						</div>
-						<div class="form-group row no-gutters" ng-repeat="i in range(noOfIngredients) track by $index">
+						<div class="form-group row no-gutters mb-2" ng-repeat="i in range(noOfIngredients) track by $index">
 							<div class="col-9 pr-1">
-								<input class="form-control" type="text" id="ingredient{{$index}}" placeholder="Ingredient name">
+								<input class="form-control" type="text" placeholder="Ingredient name" ng-model="ingredientName[$index]">
 							</div>
 							<div class="col-3">
-								<input class="form-control" type="text" id="ingredientQuantity{{$index}}" placeholder="Amount">
+								<input class="form-control" type="text" placeholder="Amount" ng-model="ingredientAmount[$index]">
 							</div>
+						</div>
+						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-0">
+							<label class="form-label col-form-label-lg">Instructions</label>
+							<div>
+								<button class="btn btn-sm btn-success" ng-click="noOfInstructions = noOfInstructions+1"><i class="fa fa-plus"></i></button>
+								<button class="btn btn-sm btn-danger" ng-click="noOfInstructions = noOfInstructions-1" ng-show="noOfInstructions > 0"><i class="fa fa-minus"></i></button>
+							</div>
+						</div>
+						<div class="form-group row no-gutters mb-2" ng-repeat="i in range(noOfInstructions) track by $index">
+							<textarea class="form-control" rows="2" placeholder="Step {{ $index+1 }}" ng-model="instruction[$index]"></textarea>
 						</div>
 					</form>
 				</div>

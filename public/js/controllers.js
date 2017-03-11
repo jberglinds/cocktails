@@ -25,6 +25,7 @@ angular.module('cocktails')
 		]
 
 		$scope.noOfIngredients = 1;
+		$scope.noOfInstructions = 1;
 		$scope.range = function(n) {
         	return new Array(n);
     	};
