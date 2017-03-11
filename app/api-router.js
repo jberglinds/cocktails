@@ -23,6 +23,23 @@ router.get('/spirits', function(req, res) {
 		res.send(rows);
 	})
 	connection.end()
+})
+
+router.get('/spirit/:spiritId(\\d+)', function(req, res) {
+	let connection = mysql.createConnection(require('../database/database_credentials.json'));
+	let query = `
+		SELECT spirits.name, spirits.abv, spirits.description, base_spirits.name AS type
+		FROM spirits
+		JOIN base_spirits
+		ON spirits.type_of_liqour=base_spirits.id
+		WHERE spirits.id=${req.params.spiritId};
+	`
+	connection.connect()
+	connection.query(query, function (err, rows, fields) {
+		if (err) throw err
+		res.send(rows);
+	})
+	connection.end()
 });
 
 module.exports = router;
