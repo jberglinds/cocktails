@@ -12,9 +12,9 @@ values
     ("Coca-cola Zero",                  ""),
     ("Coca-cola Light",                 ""),
     ("Coca-cola Vanilla",               ""),
-    ("Dr.Pepper",                       "Albins labbdryck of choice");
-    ("Dr.Pepper Zero",                  "");
-    ("Dr.Pepper Cherry",                "");
+    ("Dr.Pepper",                       "Albins labbdryck of choice"),
+    ("Dr.Pepper Zero",                  ""),
+    ("Dr.Pepper Cherry",                ""),
     ("Fanta Orange",                    ""),
     ("Fanta Exotic",                    "Ser ofta Aron med en sån här"),
     ("Fanta Wildberries",               ""),
