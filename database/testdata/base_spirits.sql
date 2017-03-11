@@ -21,4 +21,5 @@ values
     ("Fortified wine"),
     ("Champagne"),
     ("Cider"),
-    ("Beer");
+    ("Beer"),
+    ("Triple sec");

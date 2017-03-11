@@ -118,7 +118,6 @@ values
     ("Bols Crème de Banana",                        17.0, "Mycket söt, simmig smak med påtaglig karaktär av banan, inslag av vanilj. Används som drinkingrediens.", @base_spirit_id),
     ("Cafetino Coffee Liqueur",                     17.0, "Kryddig, mycket söt smak med tydlig karaktär av espressokaffe, inslag av vanilj, nötter och mjölkchoklad. Serveras kyld som avec, eller används som drinkingrediens.", @base_spirit_id),
     ("Chambord Black Raspberry",                    16.5, "Bärig, mycket söt smak  med tydlig karaktär av hallon, inslag av skogsbär. Används som drinkingrediens.", @base_spirit_id),
-    ("Cointreau",                                   40.0, "Söt smak med påtaglig karaktär av apelsin och citrusskal. Serveras kyld som avec, eller som drinkingrediens.", @base_spirit_id),
     ("Country Lane",                                17.0, "Gräddig, mycket söt smak med inslag av gräddkola och vanilj. Serveras med krossad is eller kyld som avec.", @base_spirit_id),
     ("Crème de Cassis de Bourgogne",                15.0, "Bärig, mycket söt, simmig smak med påtaglig karaktär av svarta vinbär, inslag av gräs. Används som drinkingrediens, exempelvis Kir Royal.", @base_spirit_id),
     ("De Kuyper Apricot Brandy",                    24.0, "Fruktig, söt, något syrlig smak med tydlig karaktär av aprikos, inslag av mandel. Används som drinkingrediens.", @base_spirit_id),
@@ -291,3 +290,10 @@ values
     ("Nya Carnegiebryggeriet Fridens Ale",          7.1, "Fruktig, humlearomatisk smak med tydlig beska, inslag av knäck, tallbarr, apelsin, ljus sirap, knäckebröd och aprikos. Serveras vid 8-10°C till smakrika rätter av mörkt kött, eller som sällskapsdryck.", @base_spirit_id),
     ("Clown Shoes Crunkle Sam",                     11.0, "Fruktig, nyanserad smak med sötma, inslag av aprikos, apelsinmarmelad, ljus sirap, rågbröd och honung. Serveras vid cirka 10°C som sällskapsdryck eller till rätter av mörkt kött.", @base_spirit_id),
     ("Nya Carnegiebryggeriet Hingstin Eko Stout",   5.9, "Nyanserad, rostad smak med inslag av katrinplommon, choklad, kaffe, pumpernickel, nötter och lakrits. Serveras vid 12-14°C till rätter av mörkt kött.", @base_spirit_id);
+
+-- insert some data for triple sec
+set @base_spirit_id = 16;
+insert into spirits
+    (name, abv, description, type_of_liqour)
+values
+    ("Cointreau", 40.0, "Söt smak med påtaglig karaktär av apelsin och citrusskal. Serveras kyld som avec, eller som drinkingrediens.", @base_spirit_id);

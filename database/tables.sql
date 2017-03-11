@@ -35,9 +35,10 @@ create table drinks (
     id int not null auto_increment,
     name varchar(255),
     description text,
-    ingredients_json text not null,
-    howto_json text,
     image_url varchar(255),
+    howto_json text,
+    spirits_json text not null,
+    mixers_json text,
     primary key (id)
 );
 
