@@ -104,27 +104,9 @@ angular.module('cocktails')
 	}
 ])
 
-.controller('MixersController', ['$scope',
-	function($scope) {
-
-		$scope.mixers = [
-			{
-				id: 1234,
-				name: 'Orange Juice',
-				type: 'Juice',
-			},
-			{
-				id: 1234,
-				name: 'Milk',
-				type: 'Dairy',
-			},
-			{
-				id: 1234,
-				name: 'Lemon Slice',
-				type: 'Fruit',
-			},
-		]
-
+.controller('MixersController', ['$scope', 'mixers',
+	function($scope, mixers) {
+		$scope.mixers = mixers.data;
 	}
 ])
 

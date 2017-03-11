@@ -7,9 +7,14 @@ angular.module('cocktails.api', [])
 			return $http.get("/api/spirits");
 		}
 
+		function getMixers() {
+			return $http.get("/api/mixers");
+		}
+
 		// Public for service
 		return {
-			getSpirits: getSpirits
+			getSpirits: getSpirits,
+			getMixers: getMixers
 		};
 	}
 ]);

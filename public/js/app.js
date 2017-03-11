@@ -42,7 +42,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
         name: 'mixers',
         url: '/mixers',
         templateUrl: 'views/mixers.html',
-        controller: 'MixersController'
+        controller: 'MixersController',
+        resolve: {
+            mixers: function(api) {
+                return api.getMixers();
+            }
+        }
     }
 
     let events = {
