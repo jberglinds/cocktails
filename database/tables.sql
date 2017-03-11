@@ -34,9 +34,10 @@ drop table if exists drinks;
 create table drinks (
     id int not null auto_increment,
     name varchar(255),
-    image_url varchar(255),
     description text,
-    ingredients_json text,
+    ingredients_json text not null,
+    howto_json text,
+    image_url varchar(255),
     primary key (id)
 );
 
