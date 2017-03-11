@@ -38,23 +38,41 @@
 						<div class="form-group">
 							<input type="text" class="form-control" id="imageLink" placeholder="Link to image">
 						</div>
-						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-0">
-							<label class="form-label col-form-label-lg">Ingredients</label>
+
+						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-1 pb-0">
+							<label class="form-label col-form-label-lg mb-0 pb-0">Spirits</label>
 							<div>
-								<button class="btn btn-sm btn-success" ng-click="noOfIngredients = noOfIngredients+1"><i class="fa fa-plus"></i></button>
-								<button class="btn btn-sm btn-danger" ng-click="noOfIngredients = noOfIngredients-1" ng-show="noOfIngredients > 0"><i class="fa fa-minus"></i></button>
+								<button class="btn btn-sm btn-success" ng-click="noOfSpirits = noOfSpirits+1"><i class="fa fa-plus"></i></button>
+								<button class="btn btn-sm btn-danger" ng-click="noOfSpirits = noOfSpirits-1" ng-show="noOfSpirits > 0"><i class="fa fa-minus"></i></button>
 							</div>
 						</div>
-						<div class="form-group row no-gutters mb-2" ng-repeat="i in range(noOfIngredients) track by $index">
+						<div class="form-group row no-gutters mb-2 mt-0 pt-0" ng-repeat="i in range(noOfSpirits) track by $index">
 							<div class="col-9 pr-1">
-								<input class="form-control" type="text" placeholder="Ingredient name" ng-model="ingredient[$index]" bs-typeahead bs-options="spirit.id as spirit.name for spirit in spirits" template-url="views/supports/dropdown-suggestion-template.html">
+								<input class="form-control" type="text" placeholder="Spirit name" ng-model="spiritIngredient[$index]" bs-typeahead bs-options="spirit.id as spirit.name for spirit in spirits" template-url="views/supports/dropdown-suggestion-template.html">
 							</div>
 							<div class="col-3">
-								<input class="form-control" type="text" placeholder="Amount" ng-model="ingredientAmount[$index]">
+								<input class="form-control" type="text" placeholder="Amount" ng-model="spiritIngredientAmount[$index]">
 							</div>
 						</div>
-						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-0">
-							<label class="form-label col-form-label-lg">Instructions</label>
+
+						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-1 pb-0">
+							<label class="form-label col-form-label-lg mb-0 pb-0">Mixers</label>
+							<div>
+								<button class="btn btn-sm btn-success" ng-click="noOfMixers = noOfMixers+1"><i class="fa fa-plus"></i></button>
+								<button class="btn btn-sm btn-danger" ng-click="noOfMixers = noOfMixers-1" ng-show="noOfMixers > 0"><i class="fa fa-minus"></i></button>
+							</div>
+						</div>
+						<div class="form-group row no-gutters mb-2 mt-0 pt-0" ng-repeat="i in range(noOfMixers) track by $index">
+							<div class="col-9 pr-1">
+								<input class="form-control" type="text" placeholder="Mixer name" ng-model="mixerIngredient[$index]" bs-typeahead bs-options="mixer.id as mixer.name for mixer in mixers" template-url="views/supports/dropdown-suggestion-template.html">
+							</div>
+							<div class="col-3">
+								<input class="form-control" type="text" placeholder="Amount" ng-model="mixerIngredientAmount[$index]">
+							</div>
+						</div>
+
+						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-1 pb-0">
+							<label class="form-label col-form-label-lg mb-0 pb-0">Instructions</label>
 							<div>
 								<button class="btn btn-sm btn-success" ng-click="noOfInstructions = noOfInstructions+1"><i class="fa fa-plus"></i></button>
 								<button class="btn btn-sm btn-danger" ng-click="noOfInstructions = noOfInstructions-1" ng-show="noOfInstructions > 0"><i class="fa fa-minus"></i></button>
