@@ -1,4 +1,4 @@
-let app = angular.module('cocktails', ['cocktails.api', 'ui.router', 'angular-loading-bar', 'ngAnimate']);
+let app = angular.module('cocktails', ['cocktails.api', 'ui.router', 'angular-loading-bar', 'ngAnimate', 'mgcrea.ngStrap.typeahead']);
 
 app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;

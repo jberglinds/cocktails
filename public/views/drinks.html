@@ -29,8 +29,8 @@
 				</div>
 				<div class="modal-body">
 					<form>
-						<div class="form-group">
-							<input type="text" class="form-control" id="drinkName" placeholder="Drink name">
+						<div class="form-group has-warning">
+							<input type="text" class="form-control" id="drinkName" placeholder="Drink name" required>
 						</div>
 						<div class="form-group">
 							<textarea class="form-control" id="drinkDescription" rows="2" placeholder="Description"></textarea>
@@ -47,7 +47,7 @@
 						</div>
 						<div class="form-group row no-gutters mb-2" ng-repeat="i in range(noOfIngredients) track by $index">
 							<div class="col-9 pr-1">
-								<input class="form-control" type="text" placeholder="Ingredient name" ng-model="ingredientName[$index]">
+								<input class="form-control" type="text" placeholder="Ingredient name" ng-model="ingredient[$index]" bs-typeahead bs-options="spirit.id as spirit.name for spirit in spirits" template-url="views/supports/dropdown-suggestion-template.html">
 							</div>
 							<div class="col-3">
 								<input class="form-control" type="text" placeholder="Amount" ng-model="ingredientAmount[$index]">

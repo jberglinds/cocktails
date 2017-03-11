@@ -24,11 +24,18 @@ angular.module('cocktails')
 			},
 		]
 
+
+		$scope.spirits = api.getSpirits().then((response) => {
+			return response.data;
+		})
+
 		$scope.noOfIngredients = 1;
 		$scope.noOfInstructions = 1;
 		$scope.range = function(n) {
         	return new Array(n);
     	};
+
+
 	}
 ])
 

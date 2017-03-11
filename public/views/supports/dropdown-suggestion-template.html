@@ -1,0 +1,3 @@
+<div tabindex="-1" class="typeahead dropdown-menu" ng-show="$isVisible()" role="select">
+    <a class="dropdown-item" role="menuitem" tabindex="-1" ng-click="$select($index, $event)" ng-bind="match.label" ng-class="{active: $index == $activeIndex}" ng-repeat="match in $matches"></a>
+</ul>
