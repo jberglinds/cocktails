@@ -15,7 +15,8 @@ router.get('/spirits', function(req, res) {
 		SELECT spirits.id, spirits.name, spirits.abv, base_spirits.name AS type
 		FROM spirits
 		JOIN base_spirits
-		ON spirits.type_of_liqour=base_spirits.id;
+		ON spirits.type_of_liqour=base_spirits.id
+		ORDER BY spirits.name ASC;
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
