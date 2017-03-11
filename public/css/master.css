@@ -13,3 +13,12 @@
       -ms-box-shadow: #f00 1px 0 6px 1px;
           box-shadow: #f00 1px 0 6px 1px;
 }
+
+[ui-view].ng-enter {
+    transition: all 0.1s linear;
+    opacity: 0;
+}
+
+[ui-view].ng-enter-active {
+    opacity: 1;
+}
