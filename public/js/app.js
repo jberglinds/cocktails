@@ -1,4 +1,4 @@
-let app = angular.module('cocktails', ['ui.router', 'controllers', 'angular-loading-bar', 'ngAnimate']);
+let app = angular.module('cocktails', ['cocktails.api', 'ui.router', 'angular-loading-bar', 'ngAnimate']);
 
 app.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
@@ -30,7 +30,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
         name: 'spirits',
         url: '/spirits',
         templateUrl: 'views/spirits.html',
-        controller: 'SpiritsController'
+        controller: 'SpiritsController',
+        resolve: {
+            spirits: function(api) {
+                return api.getSpirits();
+            }
+        }
     }
 
     let mixers = {

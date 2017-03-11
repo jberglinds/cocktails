@@ -1,6 +1,6 @@
-let serviceModule = angular.module('services', []);
+angular.module('cocktails.api', [])
 
-serviceModule.factory('API', ['$http',
+.factory('api', ['$http',
 	function($http) {
 
 		function getSpirits() {

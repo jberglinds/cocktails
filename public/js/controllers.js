@@ -1,6 +1,6 @@
-let controllerModule = angular.module('controllers', ['services']);
+angular.module('cocktails')
 
-controllerModule.controller('DrinksController', ['$scope', 'API',
+.controller('DrinksController', ['$scope', 'api',
 	function($scope, api) {
 		$scope.drinks = [
 			{
@@ -29,9 +29,9 @@ controllerModule.controller('DrinksController', ['$scope', 'API',
         	return new Array(n);
     	};
 	}
-]);
+])
 
-controllerModule.controller('DrinkController', ['$scope', '$stateParams',
+.controller('DrinkController', ['$scope', '$stateParams',
 	function($scope, $stateParams) {
 
 		// $stateParams.id
@@ -88,19 +88,15 @@ controllerModule.controller('DrinkController', ['$scope', '$stateParams',
 		}
 
 	}
-]);
+])
 
-controllerModule.controller('SpiritsController', ['$scope', 'API',
-	function($scope, api) {
-
-		api.getSpirits().then(function(response) {
-			$scope.spirits = response.data;
-		})
-
+.controller('SpiritsController', ['$scope', 'spirits',
+	function($scope, spirits) {
+		$scope.spirits = spirits.data;
 	}
-]);
+])
 
-controllerModule.controller('MixersController', ['$scope',
+.controller('MixersController', ['$scope',
 	function($scope) {
 
 		$scope.mixers = [
@@ -122,9 +118,9 @@ controllerModule.controller('MixersController', ['$scope',
 		]
 
 	}
-]);
+])
 
-controllerModule.controller('EventsController', ['$scope',
+.controller('EventsController', ['$scope',
 	function($scope) {
 
 		let date = new Date();
@@ -152,9 +148,9 @@ controllerModule.controller('EventsController', ['$scope',
 		]
 
 	}
-]);
+])
 
-controllerModule.controller('EventController', ['$scope',
+.controller('EventController', ['$scope',
 	function($scope) {
 
 
