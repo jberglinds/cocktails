@@ -3,6 +3,12 @@ angular.module('cocktails')
 .controller('DrinksController', ['$scope', 'drinks', 'api',
 	function($scope, drinks, api) {
 		$scope.drinks = drinks.data;
+	}
+])
+
+.controller('AddDrinkController', ['$scope', 'api',
+	function($scope, api) {
+		$scope.onlyID = '\\d+';
 
 		$scope.spirits = api.getSpirits().then((response) => {
 			return response.data;
@@ -18,6 +24,18 @@ angular.module('cocktails')
         	return new Array(n);
     	};
 
+		$scope.submit = function() {
+			// Do request
+			console.log($scope.form);
+        }
+
+		$scope.cancel = function() {
+            $scope.newDrinkForm.$setPristine();
+			$scope.form = {};
+			$scope.noOfSpirits = 1;
+			$scope.noOfMixers = 1;
+			$scope.noOfInstructions = 1;
+        }
 
 	}
 ])

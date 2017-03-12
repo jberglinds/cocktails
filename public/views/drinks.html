@@ -18,7 +18,7 @@
 	</div>
 
 	<!-- Add drink modal -->
-	<div class="modal fade" id="addDrinkModal" tabindex="-1" role="dialog" aria-labelledby="addDrinkModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addDrinkModal" tabindex="-1" role="dialog" aria-labelledby="addDrinkModalLabel" aria-hidden="true" ng-controller="AddDrinkController">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -28,15 +28,15 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<form>
-						<div class="form-group has-warning">
-							<input type="text" class="form-control" id="drinkName" placeholder="Drink name" required>
+					<form name="newDrinkForm" novalidate>
+						<div class="form-group">
+							<input type="text" class="form-control" name="name" ng-model="form.name" placeholder="Drink name" required>
 						</div>
 						<div class="form-group">
-							<textarea class="form-control" id="drinkDescription" rows="2" placeholder="Description"></textarea>
+							<textarea class="form-control" id="drinkDescription" rows="2" placeholder="Description" ng-model="form.description" required></textarea>
 						</div>
 						<div class="form-group">
-							<input type="text" class="form-control" id="imageLink" placeholder="Link to image">
+							<input type="url" class="form-control" id="imageLink" placeholder="Link to image" ng-model="form.image_url" required>
 						</div>
 
 						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-1 pb-0">
@@ -48,12 +48,13 @@
 						</div>
 						<div class="form-group row no-gutters mb-2 mt-0 pt-0" ng-repeat="i in range(noOfSpirits) track by $index">
 							<div class="col-9 pr-1">
-								<input class="form-control" type="text" placeholder="Spirit name" ng-model="spiritIngredient[$index]" bs-typeahead bs-options="spirit.id as spirit.name for spirit in spirits" template-url="views/supports/dropdown-suggestion-template.html">
+								<input class="form-control" type="text" ng-pattern="onlyID" placeholder="Spirit name" ng-model="form.spiritIngredient[$index]" bs-typeahead bs-options="spirit.id as spirit.name for spirit in spirits" template-url="views/supports/dropdown-suggestion-template.html" required>
 							</div>
 							<div class="col-3">
-								<input class="form-control" type="text" placeholder="Amount" ng-model="spiritIngredientAmount[$index]">
+								<input class="form-control" type="text" placeholder="Amount" ng-model="form.spiritIngredientAmount[$index]">
 							</div>
 						</div>
+
 
 						<div class="form-group d-flex flew-row justify-content-between align-items-center mb-1 pb-0">
 							<label class="form-label col-form-label-lg mb-0 pb-0">Mixers</label>
@@ -64,10 +65,10 @@
 						</div>
 						<div class="form-group row no-gutters mb-2 mt-0 pt-0" ng-repeat="i in range(noOfMixers) track by $index">
 							<div class="col-9 pr-1">
-								<input class="form-control" type="text" placeholder="Mixer name" ng-model="mixerIngredient[$index]" bs-typeahead bs-options="mixer.id as mixer.name for mixer in mixers" template-url="views/supports/dropdown-suggestion-template.html">
+								<input class="form-control" type="text" ng-pattern="onlyID" placeholder="Mixer name" ng-model="form.mixerIngredient[$index]" bs-typeahead bs-options="mixer.id as mixer.name for mixer in mixers" template-url="views/supports/dropdown-suggestion-template.html" required>
 							</div>
 							<div class="col-3">
-								<input class="form-control" type="text" placeholder="Amount" ng-model="mixerIngredientAmount[$index]">
+								<input class="form-control" type="text" placeholder="Amount" ng-model="form.mixerIngredientAmount[$index]">
 							</div>
 						</div>
 
@@ -79,13 +80,13 @@
 							</div>
 						</div>
 						<div class="form-group row no-gutters mb-2" ng-repeat="i in range(noOfInstructions) track by $index">
-							<textarea class="form-control" rows="2" placeholder="Step {{ $index+1 }}" ng-model="instruction[$index]"></textarea>
+							<textarea class="form-control" rows="2" placeholder="Step {{ $index+1 }}" ng-model="form.instruction[$index]" required></textarea>
 						</div>
 					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-outline-primary">Add</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="cancel()">Cancel</button>
+					<button type="button" class="btn btn-outline-primary" data-dismiss="modal" ng-click="submit()" ng-disabled="newDrinkForm.$invalid">Add</button>
 				</div>
 			</div>
 		</div>
