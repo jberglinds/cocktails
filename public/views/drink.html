@@ -9,8 +9,8 @@
 				<p class="lead mt-2">{{ drink.description }}</p>
 			</div>
 			<div class="col-sm-6 text-sm-right text-center">
-				<img ng-src="{{ drink.image }}" class="img-thumbnail img-fluid hidden-xs-down" style="max-height: 250px">
-				<img ng-src="{{ drink.image }}" class="img-thumbnail img-fluid hidden-sm-up">
+				<img ng-src="{{ drink.image_url }}" class="img-thumbnail img-fluid hidden-xs-down" style="max-height: 250px">
+				<img ng-src="{{ drink.image_url }}" class="img-thumbnail img-fluid hidden-sm-up">
 			</div>
 		</div>
 	</div>
@@ -28,12 +28,13 @@
 				</li>
 			</ul>
 		</div>
-		<div class="col-sm-6 col-md-8 text-center" ng-if="drink.howto">
+		<div class="col-sm-6 col-md-8 text-center" ng-if="drink.howto_json">
 			<ul class="list-group">
 				<li class="list-group-item active">
 					<h4 class="mt-2">How to mix</h4>
 				</li>
-				<li class="list-group-item" ng-repeat="instruction in drink.howto track by $index">
+				<li class="list-group-item" ng-repeat="instruction in drink.howto_json track by $index">
+					{{drink.howto_json}}
 					<div class="d-flex w-100 justify-content-between">
 						<h5 class="mb-1">Step {{ $index+1 }}</h5>
 					</div>

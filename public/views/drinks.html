@@ -7,7 +7,7 @@
 		<div class="col-md-6 col-lg-4 mb-3" ng-repeat="drink in drinks | filter:searchfilter">
 			<div class="row no-gutters" ui-sref="drink({id: drink.id})">
 				<div class="col-6">
-					<img class="img-thumbnail" ng-src="{{ drink.image }}" alt="{{ drink.name + ' image' }}">
+					<img class="img-thumbnail" ng-src="{{ drink.image_url }}" alt="{{ drink.name + ' image' }}">
 				</div>
 				<div class="col-6 pl-2">
 					<h4>{{ drink.name }}</h4>

@@ -16,14 +16,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
         name: 'drinks',
         url: '/drinks',
         templateUrl: 'views/drinks.html',
-        controller: 'DrinksController'
+        controller: 'DrinksController',
+        resolve: {
+            drinks: function(api) {
+                return api.getDrinks();
+            }
+        }
     }
 
     let drink = {
         name: 'drink',
         url: '/drinks/:id',
         templateUrl: 'views/drink.html',
-        controller: 'DrinkController'
+        controller: 'DrinkController',
+        resolve: {
+            drink: function(api, $stateParams) {
+                return api.getDrink($stateParams.id);
+            }
+        }
     }
 
     let spirits = {
