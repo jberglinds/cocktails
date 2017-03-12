@@ -129,4 +129,24 @@ router.get('/drink/:drinkId(\\d+)', function(req, res) {
 	connection.end()
 });
 
+/*
+* GET /base_spirit/base_spiritId
+* Returns the base_spirit that matches base_spiritId from the db
+* name
+*/
+router.get('/base_spirit/:base_spiritId(\\d+)', function(req, res) {
+	let connection = mysql.createConnection(require('../database/database_credentials.json'));
+	let query = `
+		SELECT base_spirits.name
+		FROM base_spirits
+		WHERE base_spirits.id=${req.params.base_spiritId};
+	`
+	connection.connect()
+	connection.query(query, function (err, rows, fields) {
+		if (err) throw err
+		res.send(rows);
+	})
+	connection.end()
+});
+
 module.exports = router;
