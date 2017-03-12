@@ -5,10 +5,6 @@ let mysql = require('mysql')
 
 let router = express.Router();
 
-router.get('/test', function(req, res) {
-	res.send('It works!');
-})
-
 /*
 * GET /spirits
 * Returns all spirits from the db, sorted asc by name
@@ -51,7 +47,7 @@ router.get('/spirit/:spiritId(\\d+)', function(req, res) {
 		res.send(rows);
 	})
 	connection.end()
-});
+})
 
 /*
 * GET /mixers
@@ -81,9 +77,49 @@ router.get('/mixers', function(req, res) {
 router.get('/mixer/:mixerId(\\d+)', function(req, res) {
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
-		SELECT mixers.name,  mixers.description
+		SELECT mixers.name, mixers.description
 		FROM mixers
 		WHERE mixers.id=${req.params.mixerId};
+	`
+	connection.connect()
+	connection.query(query, function (err, rows, fields) {
+		if (err) throw err
+		res.send(rows);
+	})
+	connection.end()
+})
+
+/*
+* GET /drinks
+* Returns all drinks from the db, sorted asc by name
+* id, name, image url, json storing which spirits are used
+*/
+router.get('/drinks', function(req, res) {
+	let connection = mysql.createConnection(require('../database/database_credentials.json'));
+	let query = `
+		SELECT drinks.id, drinks.name, drinks.image_url, drinks.spirits_json
+		FROM drinks
+		ORDER BY drinks.name ASC;
+	`
+	connection.connect()
+	connection.query(query, function (err, rows, fields) {
+		if (err) throw err
+		res.send(rows);
+	})
+	connection.end()
+})
+
+/*
+* GET /drink/drinkId
+* Returns the drink that matches drinkId from the db
+* name, description, image url, howto-json, spirits-json, mixers-json
+*/
+router.get('/drink/:drinkId(\\d+)', function(req, res) {
+	let connection = mysql.createConnection(require('../database/database_credentials.json'));
+	let query = `
+		SELECT drinks.name, drinks.description, drinks.image_url, drinks.howto_json, drinks.spirits_json, drinks.mixers_json
+		FROM drinks
+		WHERE drinks.id=${req.params.drinkId};
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {

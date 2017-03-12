@@ -13,3 +13,6 @@ mysql --host=mysql-vt2016.csc.kth.se "albinre" < "testdata/spirits.sql"
 
 # Add mixers
 mysql --host=mysql-vt2016.csc.kth.se "albinre" < "testdata/mixers.sql"
+
+# Add drinks
+mysql --host=mysql-vt2016.csc.kth.se "albinre" < "testdata/drinks.sql"
