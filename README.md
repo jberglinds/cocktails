@@ -1,4 +1,4 @@
-# projekt
+# cocktails
 
 See SPECIFICATION.md for project specification in Swedish.
 
