@@ -19,13 +19,13 @@
 <div class="container">
 	<div class="d-flex justify-content-between mb-2">
 			<h3>Spirits inventory</h3>
-			<div class="">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Add spirit..." autocomplete="off">
+			<div class="col-5">
+				<form class="input-group validation" name="addSpiritForm" ng-submit="addSpiritForm.$valid && addSpiritToInventory(spiritID)">
+					<input type="text" class="form-control" ng-model="spiritID" placeholder="Add spirit..." autocomplete="off" ng-model-options="{ allowInvalid: true }" ng-pattern="onlyID" bs-typeahead auto-select="true" bs-options="spirit.id as spirit.name for spirit in spirits" template-url="views/supports/dropdown-suggestion-template.html" required>
 					<div class="input-group-btn">
-						<button type="button" class="btn btn-outline-primary">Add</i></button>
+						<button type="submit" class="btn btn-outline-primary" ng-disabled="addSpiritForm.$invalid">Add</i></button>
 					</div>
-				</div>
+				</form>
 			</div>
 	</div>
 	<table class="table table-hover">
@@ -48,13 +48,13 @@
 	</table>
 	<div class="d-flex justify-content-between mb-2 mt-5">
 			<h3>Mixers inventory</h3>
-			<div class="">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Add mixer..." autocomplete="off">
+			<div class="col-5">
+				<form class="input-group validation" name="addMixerForm" ng-submit="addMixerForm.$valid && addMixerToInventory(mixerID)">
+					<input type="text" class="form-control" ng-model="mixerID" placeholder="Add mixer..." autocomplete="off" ng-model-options="{ allowInvalid: true }" ng-pattern="onlyID" bs-typeahead auto-select="true" bs-options="mixer.id as mixer.name for mixer in mixers" template-url="views/supports/dropdown-suggestion-template.html" required>
 					<div class="input-group-btn">
-						<button type="button" class="btn btn-outline-primary">Add</i></button>
+						<button type="submit" class="btn btn-outline-primary" ng-disabled="addMixerForm.$invalid">Add</i></button>
 					</div>
-				</div>
+				</form>
 			</div>
 	</div>
 	<table class="table table-hover">

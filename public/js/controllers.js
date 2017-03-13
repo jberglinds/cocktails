@@ -80,9 +80,29 @@ angular.module('cocktails')
 	}
 ])
 
-.controller('EventController', ['$scope',
-	function($scope) {
+.controller('EventController', ['$scope', 'api',
+	function($scope, api) {
+		$scope.onlyID = '\\d+';
 
+		$scope.spirits = api.getSpirits().then((response) => {
+			return response.data;
+		});
+		$scope.mixers = api.getMixers().then((response) => {
+			return response.data;
+		});
+
+		$scope.addSpiritToInventory = function(id) {
+			console.log(id);
+			//API call
+			$scope.spiritID = '';
+			$scope.addSpiritForm.$setPristine();
+		}
+
+		$scope.addMixerToInventory = function(id) {
+			console.log(id);
+			$scope.mixerID = '';
+			$scope.addMixerForm.$setPristine();
+		}
 
 	}
 ]);
