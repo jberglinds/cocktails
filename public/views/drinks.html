@@ -11,7 +11,7 @@
 				</div>
 				<div class="col-6 pl-2">
 					<h4>{{ drink.name }}</h4>
-					<span class="badge badge-default badge-pill mr-1" ng-repeat="tag in drink.tags">{{ tag }}</span>
+					<span class="badge badge-default badge-pill mr-1" ng-repeat="spirit in drink.spirits_json">{{ spirit.base_spirit.name }}</span>
 				</div>
 			</div>
 		</div>

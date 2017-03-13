@@ -4,7 +4,7 @@
 			<div class="col-sm-6">
 				<h1 class="display-3">{{ drink.name }}</h1>
 				<h5>
-					<span class="badge badge-lg badge-default badge-pill mr-1 mb-1" ng-repeat="tag in drink.tags">{{ tag }}</span>
+					<span class="badge badge-lg badge-default badge-pill mr-1 mb-1" ng-repeat="spirit in drink.spirits_json">{{ spirit.base_spirit.name }}</span>
 				</h5>
 				<p class="lead mt-2">{{ drink.description }}</p>
 			</div>
