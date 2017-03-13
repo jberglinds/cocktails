@@ -58,33 +58,9 @@ angular.module('cocktails')
 	}
 ])
 
-.controller('EventsController', ['$scope',
-	function($scope) {
-
-		let date = new Date();
-		date.setDate(date.getDate() + 6);
-
-		let date2 = new Date();
-		date2.setDate(date2.getDate() + 10);
-
-		$scope.events = [
-			{
-				id: 1234,
-				name: 'Onsdagspub',
-				date: new Date(),
-			},
-			{
-				id: 1234,
-				name: 'Torsdagspub',
-				date: date,
-			},
-			{
-				id: 1234,
-				name: 'Mottagningstack',
-				date: date2,
-			},
-		]
-
+.controller('EventsController', ['$scope', 'events',
+	function($scope, events) {
+		$scope.events = events.data;
 	}
 ])
 

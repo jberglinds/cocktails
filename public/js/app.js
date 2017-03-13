@@ -64,7 +64,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
         name: 'events',
         url: '/events',
         templateUrl: 'views/events.html',
-        controller: 'EventsController'
+        controller: 'EventsController',
+        resolve: {
+            events: function(api) {
+                return api.getEvents();
+            }
+        }
     }
 
     let event = {

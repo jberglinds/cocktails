@@ -19,6 +19,10 @@ angular.module('cocktails.api', [])
 			return $http.get("/api/mixers");
 		}
 
+		function getEvents() {
+			return $http.get("/api/events");
+		}
+
 		function postNewDrink(name, description, image_url, spirits, mixers, instructions) {
 			let requestData = {
 				name: name,
@@ -47,6 +51,7 @@ angular.module('cocktails.api', [])
 			getDrink: getDrink,
 			getSpirits: getSpirits,
 			getMixers: getMixers,
+			getEvents: getEvents,
 			postNewDrink: postNewDrink,
 			postNewEvent: postNewEvent
 		};
