@@ -45,11 +45,10 @@ create table drinks (
 drop table if exists events;
 create table events (
     id int not null auto_increment,
-    name varchar(255),
+    name varchar(255) not null,
     description text,
-    passphrase varchar(255),
-    start_date datetime,
-    end_date datetime,
+    passphrase varchar(255) not null,
+    start_date datetime not null,
     primary key (id)
 );
 
