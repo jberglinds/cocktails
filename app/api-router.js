@@ -127,7 +127,10 @@ router.get('/drink/:drinkId(\\d+)', function(req, res) {
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
 		if (err) throw err
-		res.send(rows);
+		rows[0].howto_json = JSON.parse(rows[0].howto_json);
+		rows[0].spirits_json = JSON.parse(rows[0].spirits_json);
+		rows[0].mixers_json = JSON.parse(rows[0].mixers_json);
+		res.send(rows[0]);
 	})
 	connection.end()
 });
