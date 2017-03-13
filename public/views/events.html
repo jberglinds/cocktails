@@ -3,7 +3,7 @@
     <p class="lead">Create an event to see what's mixable!</p>
     <button type="button" name="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#createEventModal">Create new event</button>
     <!-- TODO: Sortable by table headers -->
-    <input type="text" class="form-control mb-2 mt-2" placeholder="Search events..." autocomplete="off" ng-model="searchfilter">
+    <input class="form-control mb-2 mt-2" placeholder="Search events..." autocomplete="off" ng-model="searchfilter">
     <table class="table table-hover mt-3">
         <thead>
             <tr>
@@ -43,7 +43,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form name="newEventForm" novalidate>
+                    <form name="newEventForm" class="validation" novalidate>
                         <div class="form-group">
                             <input type="text" class="form-control" id="eventName" placeholder="Event name" ng-model="form.name" required>
                         </div>
