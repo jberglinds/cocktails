@@ -155,4 +155,24 @@ router.get('/base_spirit/:base_spiritId(\\d+)', function(req, res) {
 	connection.end()
 });
 
+/*
+* GET /events
+* Returns all events from the db, sorted asc by name
+* id, name, start_date
+*/
+router.get('/events', function(req, res) {
+	let connection = mysql.createConnection(require('../database/database_credentials.json'));
+	let query = `
+		SELECT events.id, events.name, events.start_date
+		FROM events
+		WHERE events.start_date + INTERVAL 1 DAY > NOW();
+	`
+	connection.connect()
+	connection.query(query, function (err, rows, fields) {
+		if (err) throw err
+		res.send(rows);
+	})
+	connection.end()
+});
+
 module.exports = router;
