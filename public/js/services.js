@@ -31,13 +31,24 @@ angular.module('cocktails.api', [])
 			return $http.get("/api/newDrink", requestData);
 		}
 
+		function postNewEvent(name, description, date, password) {
+			let requestData = {
+				name: name,
+				description: description,
+				date: date,
+				password: password
+			}
+			return $http.get("/api/newEvent", requestData);
+		}
+
 		// Public for service
 		return {
 			getDrinks: getDrinks,
 			getDrink: getDrink,
 			getSpirits: getSpirits,
 			getMixers: getMixers,
-			postNewDrink: postNewDrink
+			postNewDrink: postNewDrink,
+			postNewEvent: postNewEvent
 		};
 	}
 ]);

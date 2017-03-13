@@ -88,6 +88,22 @@ angular.module('cocktails')
 	}
 ])
 
+.controller('AddEventController', ['$scope', 'api',
+	function($scope, api) {
+
+		$scope.submit = function() {
+			// Do request
+			console.log($scope.form);
+		}
+
+		$scope.cancel = function() {
+			$scope.newEventForm.$setPristine();
+			$scope.form = {};
+		}
+
+	}
+])
+
 .controller('EventController', ['$scope',
 	function($scope) {
 

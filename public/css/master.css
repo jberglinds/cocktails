@@ -23,6 +23,11 @@
 	opacity: 1;
 }
 
+input.password {
+	font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	font-size: 95%;
+}
+
 .ng-invalid.ng-dirty {
 	border-color: #d9534f;
 }
