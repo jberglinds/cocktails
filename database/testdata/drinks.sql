@@ -14,7 +14,7 @@ values
     -- spirits
     "[{\"base_spirit\": {\"id\": 1,\"name\": \"Gin\"},\"amount\": \"2 cl\"}, {\"base_spirit\": {\"id\": 2,\"name\": \"Vodka\"},\"amount\": \"2 cl\"}, {\"base_spirit\": {\"id\": 3,\"name\": \"Tequila\"},\"amount\": \"2 cl\"}, {\"base_spirit\": {\"id\": 5,\"name\": \"White rum\"},\"amount\": \"2 cl\"}, {\"base_spirit\": {\"id\": 16,\"name\": \"Triple sec\"},\"amount\": \"2 cl\"}]",
     -- mixers
-    "[{\"mixer_id\": 79, \"amount\": \"2 cl\"}, {\"mixer_id\": 75, \"amount\": \"2 cl\"}, {\"mixer_id\": 1}]");
+    "[{\"mixer\":{\"id\": 52, \"name\": \"Citronsaft\"}, \"amount\": \"2 cl\"}, {\"mixer\": {\"id\": 96, \"name\": \"Sockerlag\"}, \"amount\": \"2 cl\"}, {\"mixer\": {\"id\": 1, \"name\": \"Coca Cola\"}}]");
 
 -- insert some drink data
 insert into drinks
@@ -26,4 +26,4 @@ values
     -- spirits
     "[{\"base_spirit\": {\"id\": 1, \"name\": \"Gin\"}, \"amount\": \"6 cl\"}]",
     -- mixers
-    "[{\"mixer_id\": 66, \"amount\": \"En skiva\"}, {\"mixer_id\": 67, \"amount\": \"En fjärdedel (pressad)\"}, {\"mixer_id\": 23}]");
+    "[{\"mixer\":{\"id\": 73, \"name\": \"Citron\"}, \"amount\": \"En skiva\"}, {\"mixer\": {\"id\": 74, \"name\": \"Lime\"}, \"amount\": \"1/4 pressad\"}, {\"mixer\": {\"id\": 45, \"name\": \"Tonic\"}}]");
