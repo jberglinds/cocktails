@@ -10,10 +10,10 @@
 		27CC45648D05AFC2209C898A /* libPods-Cocktails.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6C87D17BF8AE431C648428 /* libPods-Cocktails.a */; };
 		AB139B171E772B1000E92996 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB139B161E772B1000E92996 /* main.m */; };
 		AB139B1A1E772B1000E92996 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB139B191E772B1000E92996 /* AppDelegate.m */; };
-		AB139B1D1E772B1000E92996 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB139B1C1E772B1000E92996 /* ViewController.m */; };
 		AB139B201E772B1000E92996 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB139B1E1E772B1000E92996 /* Main.storyboard */; };
 		AB139B221E772B1000E92996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB139B211E772B1000E92996 /* Assets.xcassets */; };
 		AB139B251E772B1000E92996 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB139B231E772B1000E92996 /* LaunchScreen.storyboard */; };
+		AB139B2E1E772EBC00E92996 /* EventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB139B2D1E772EBC00E92996 /* EventsTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,12 +21,12 @@
 		AB139B161E772B1000E92996 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AB139B181E772B1000E92996 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AB139B191E772B1000E92996 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AB139B1B1E772B1000E92996 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		AB139B1C1E772B1000E92996 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		AB139B1F1E772B1000E92996 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AB139B211E772B1000E92996 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AB139B241E772B1000E92996 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AB139B261E772B1000E92996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB139B2C1E772EBC00E92996 /* EventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableViewController.h; sourceTree = "<group>"; };
+		AB139B2D1E772EBC00E92996 /* EventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewController.m; sourceTree = "<group>"; };
 		CF6C87D17BF8AE431C648428 /* libPods-Cocktails.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cocktails.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABBD4A20459060B7BEB8B74 /* Pods-Cocktails.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktails.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cocktails/Pods-Cocktails.release.xcconfig"; sourceTree = "<group>"; };
 		F7B97B388524C00C7FAFEF12 /* Pods-Cocktails.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktails.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cocktails/Pods-Cocktails.debug.xcconfig"; sourceTree = "<group>"; };
@@ -74,14 +74,9 @@
 		AB139B141E772B1000E92996 /* Cocktails */ = {
 			isa = PBXGroup;
 			children = (
-				AB139B181E772B1000E92996 /* AppDelegate.h */,
-				AB139B191E772B1000E92996 /* AppDelegate.m */,
-				AB139B1B1E772B1000E92996 /* ViewController.h */,
-				AB139B1C1E772B1000E92996 /* ViewController.m */,
 				AB139B1E1E772B1000E92996 /* Main.storyboard */,
-				AB139B211E772B1000E92996 /* Assets.xcassets */,
-				AB139B231E772B1000E92996 /* LaunchScreen.storyboard */,
-				AB139B261E772B1000E92996 /* Info.plist */,
+				AB139B2C1E772EBC00E92996 /* EventsTableViewController.h */,
+				AB139B2D1E772EBC00E92996 /* EventsTableViewController.m */,
 				AB139B151E772B1000E92996 /* Supporting Files */,
 			);
 			path = Cocktails;
@@ -90,6 +85,11 @@
 		AB139B151E772B1000E92996 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AB139B261E772B1000E92996 /* Info.plist */,
+				AB139B211E772B1000E92996 /* Assets.xcassets */,
+				AB139B231E772B1000E92996 /* LaunchScreen.storyboard */,
+				AB139B181E772B1000E92996 /* AppDelegate.h */,
+				AB139B191E772B1000E92996 /* AppDelegate.m */,
 				AB139B161E772B1000E92996 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -225,8 +225,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB139B1D1E772B1000E92996 /* ViewController.m in Sources */,
 				AB139B1A1E772B1000E92996 /* AppDelegate.m in Sources */,
+				AB139B2E1E772EBC00E92996 /* EventsTableViewController.m in Sources */,
 				AB139B171E772B1000E92996 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -384,6 +384,7 @@
 				AB139B2B1E772B1000E92996 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  EventsTableViewController.h
 //  Cocktails
 //
 //  Created by Jonathan Berglind on 2017-03-13.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface EventsTableViewController : UITableViewController
 
 @end
