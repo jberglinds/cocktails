@@ -121,10 +121,10 @@ insert into mixers
 insert into mixers
     (name, description)
 values
-    ("Isbitar"),
-    ("Krossad is"),
-    ("Mjölk"),
-    ("Kokosmjölk"),
+    ("Isbitar", ""),
+    ("Krossad is", ""),
+    ("Mjölk", ""),
+    ("Kokosmjölk", ""),
     ("Salt", ""),
     ("Geléhjärtan", ""),
     ("Geléhallon", ""),
