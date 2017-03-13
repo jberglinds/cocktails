@@ -104,6 +104,9 @@ router.get('/drinks', function(req, res) {
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
 		if (err) throw err
+		for (let i = 0; i < rows.length; i++) {
+			rows[i].spirits_json = JSON.parse(rows[i].spirits_json);
+		}
 		res.send(rows);
 	})
 	connection.end()
