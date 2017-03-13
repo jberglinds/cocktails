@@ -86,6 +86,32 @@ NSString *const EVENTS_API_ENDPOINT = @"http://localhost:8080/api/events";
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    EventInfo *event = self.events[indexPath.row];
+
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:event.name
+                                                                   message:@"Enter password to administrate event."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* dissmissAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction * action) {
+                                                               [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                                                           }];
+
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Enter" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                                                          }];
+
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.placeholder = @"Event password";
+    }];
+
+    [alert addAction:dissmissAction];
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 /*
 // Override to support conditional editing of the table view.
