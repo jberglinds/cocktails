@@ -19,12 +19,25 @@ angular.module('cocktails.api', [])
 			return $http.get("/api/mixers");
 		}
 
+		function postNewDrink(name, description, image_url, spirits, mixers, instructions) {
+			let requestData = {
+				name: name,
+				description: description,
+				image_url: image_url,
+				spirits: spirits,
+				mixers: mixers,
+				instructions: instructions
+			}
+			return $http.get("/api/newDrink", requestData);
+		}
+
 		// Public for service
 		return {
 			getDrinks: getDrinks,
 			getDrink: getDrink,
 			getSpirits: getSpirits,
-			getMixers: getMixers
+			getMixers: getMixers,
+			postNewDrink: postNewDrink
 		};
 	}
 ]);

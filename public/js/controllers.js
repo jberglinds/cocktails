@@ -26,7 +26,7 @@ angular.module('cocktails')
 
 		$scope.submit = function() {
 			// Do request
-			console.log($scope.form);
+			console.log($scope.form.spiritIngredient);
         }
 
 		$scope.cancel = function() {
