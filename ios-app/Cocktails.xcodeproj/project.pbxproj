@@ -14,6 +14,7 @@
 		AB139B221E772B1000E92996 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AB139B211E772B1000E92996 /* Assets.xcassets */; };
 		AB139B251E772B1000E92996 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AB139B231E772B1000E92996 /* LaunchScreen.storyboard */; };
 		AB139B2E1E772EBC00E92996 /* EventsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB139B2D1E772EBC00E92996 /* EventsTableViewController.m */; };
+		AB139B311E7732F100E92996 /* EventInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AB139B301E7732F100E92996 /* EventInfo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,8 @@
 		AB139B261E772B1000E92996 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AB139B2C1E772EBC00E92996 /* EventsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventsTableViewController.h; sourceTree = "<group>"; };
 		AB139B2D1E772EBC00E92996 /* EventsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventsTableViewController.m; sourceTree = "<group>"; };
+		AB139B2F1E7732F100E92996 /* EventInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventInfo.h; path = Model/EventInfo.h; sourceTree = "<group>"; };
+		AB139B301E7732F100E92996 /* EventInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventInfo.m; path = Model/EventInfo.m; sourceTree = "<group>"; };
 		CF6C87D17BF8AE431C648428 /* libPods-Cocktails.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cocktails.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EABBD4A20459060B7BEB8B74 /* Pods-Cocktails.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktails.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cocktails/Pods-Cocktails.release.xcconfig"; sourceTree = "<group>"; };
 		F7B97B388524C00C7FAFEF12 /* Pods-Cocktails.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cocktails.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cocktails/Pods-Cocktails.debug.xcconfig"; sourceTree = "<group>"; };
@@ -77,6 +80,7 @@
 				AB139B1E1E772B1000E92996 /* Main.storyboard */,
 				AB139B2C1E772EBC00E92996 /* EventsTableViewController.h */,
 				AB139B2D1E772EBC00E92996 /* EventsTableViewController.m */,
+				AB139B321E7732FD00E92996 /* Model */,
 				AB139B151E772B1000E92996 /* Supporting Files */,
 			);
 			path = Cocktails;
@@ -93,6 +97,15 @@
 				AB139B161E772B1000E92996 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AB139B321E7732FD00E92996 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AB139B2F1E7732F100E92996 /* EventInfo.h */,
+				AB139B301E7732F100E92996 /* EventInfo.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		B33FD69CB37A7F179F37B76D /* Frameworks */ = {
@@ -225,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB139B311E7732F100E92996 /* EventInfo.m in Sources */,
 				AB139B1A1E772B1000E92996 /* AppDelegate.m in Sources */,
 				AB139B2E1E772EBC00E92996 /* EventsTableViewController.m in Sources */,
 				AB139B171E772B1000E92996 /* main.m in Sources */,

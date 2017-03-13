@@ -7,12 +7,17 @@
 //
 
 #import "EventsTableViewController.h"
+#import "AFNetworking.h"
+#import "EventInfo.h"
 
 @interface EventsTableViewController ()
-
+@property (strong, nonatomic) NSMutableArray *events; // of EventInfo
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
 @end
 
 @implementation EventsTableViewController
+
+NSString *const EVENTS_API_ENDPOINT = @"http://localhost:8080/api/events";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,6 +27,36 @@
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager GET:EVENTS_API_ENDPOINT parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"Success: %@", responseObject);
+        for (NSDictionary *event in responseObject) {
+            EventInfo *eventInfo = [[EventInfo alloc] initWithId:(long)event[@"id"] name:event[@"name"] andDate:[self.dateFormatter dateFromString:event[@"start_date"]]];
+            [self.events addObject:eventInfo];
+        }
+        [self.tableView reloadData];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"Fail: %@", error);
+    }];
+
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+}
+
+# pragma mark - Initialization
+- (NSDateFormatter *)dateFormatter {
+    if (!_dateFormatter) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'.000Z'"];
+    }
+    return _dateFormatter;
+}
+
+- (NSMutableArray *)events {
+    if (!_events) _events = [[NSMutableArray alloc] init];
+    return _events;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,24 +67,25 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.events count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
 
-    // Configure the cell...
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"event" forIndexPath:indexPath];
+
+    EventInfo *event = self.events[indexPath.row];
+
+    cell.textLabel.text = event.name;
+    cell.detailTextLabel.text = [NSDateFormatter localizedStringFromDate:event.startDate dateStyle:NSDateFormatterMediumStyle timeStyle:NSDateFormatterNoStyle];
 
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
