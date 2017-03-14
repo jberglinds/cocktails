@@ -1,0 +1,118 @@
+{
+	"version": 1,
+	"collections": [
+		{
+			"id": "37787abc-b110-452c-8d52-b73f05e805b4",
+			"name": "Cocktails",
+			"folders": [],
+			"requests": [
+				{
+					"id": "ecd40446-2a22-4334-9145-f4a13427880b",
+					"url": "http://localhost:8080/api/drinks",
+					"method": "GET",
+					"collectionId": "37787abc-b110-452c-8d52-b73f05e805b4",
+					"name": "Drinks",
+					"description": "",
+					"headers": "",
+					"dataMode": "raw",
+					"data": ""
+				},
+				{
+					"id": "de243424-27c6-420e-b82b-0e62b63355ea",
+					"url": "http://localhost:8080/api/drink/1",
+					"method": "GET",
+					"collectionId": "37787abc-b110-452c-8d52-b73f05e805b4",
+					"name": "Drink by ID",
+					"description": "",
+					"headers": "",
+					"dataMode": "raw",
+					"data": ""
+				},
+				{
+					"id": "2b94fb3c-8754-4d3b-8cde-24de03d052db",
+					"url": "http://localhost:8080/api/spirits",
+					"method": "GET",
+					"collectionId": "37787abc-b110-452c-8d52-b73f05e805b4",
+					"name": "Spirits",
+					"description": "",
+					"headers": "",
+					"dataMode": "raw",
+					"data": ""
+				},
+				{
+					"id": "fb6bb288-a2c6-46d9-bf52-bf8b5b088577",
+					"url": "http://localhost:8080/api/spirit/1000",
+					"method": "GET",
+					"collectionId": "37787abc-b110-452c-8d52-b73f05e805b4",
+					"name": "Spirit by ID",
+					"description": "",
+					"headers": "",
+					"dataMode": "raw",
+					"data": ""
+				},
+				{
+					"id": "8933258a-7222-49b5-92eb-c1ad93ba84c3",
+					"url": "http://localhost:8080/api/mixers",
+					"method": "GET",
+					"collectionId": "37787abc-b110-452c-8d52-b73f05e805b4",
+					"name": "Mixers",
+					"description": "",
+					"headers": "",
+					"dataMode": "raw",
+					"data": ""
+				},
+				{
+					"id": "d0d98cdc-036a-400e-bb84-456ab5b8dba5",
+					"url": "http://localhost:8080/api/mixer/1000",
+					"method": "GET",
+					"collectionId": "37787abc-b110-452c-8d52-b73f05e805b4",
+					"name": "Mixer by ID",
+					"description": "",
+					"headers": "",
+					"dataMode": "raw",
+					"data": ""
+				},
+				{
+					"id": "bebd1dda-a0a0-4c04-af8e-73993954a9d1",
+					"url": "http://localhost:8080/api/events",
+					"method": "GET",
+					"collectionId": "37787abc-b110-452c-8d52-b73f05e805b4",
+					"name": "Events",
+					"description": "",
+					"headers": "",
+					"dataMode": "raw",
+					"data": ""
+				},
+				{
+					"id": "1e3f3da6-9889-4f50-9232-37713dd177c3",
+					"url": "http://localhost:8080/api/event/4?passphrase=dominera",
+					"method": "GET",
+					"collectionId": "37787abc-b110-452c-8d52-b73f05e805b4",
+					"name": "Event by ID",
+					"description": "",
+					"headers": "",
+					"dataMode": "raw",
+					"data": ""
+				}
+			],
+			"order": [
+				"ecd40446-2a22-4334-9145-f4a13427880b",
+				"de243424-27c6-420e-b82b-0e62b63355ea",
+				"2b94fb3c-8754-4d3b-8cde-24de03d052db",
+				"fb6bb288-a2c6-46d9-bf52-bf8b5b088577",
+				"8933258a-7222-49b5-92eb-c1ad93ba84c3",
+				"d0d98cdc-036a-400e-bb84-456ab5b8dba5",
+				"bebd1dda-a0a0-4c04-af8e-73993954a9d1",
+				"1e3f3da6-9889-4f50-9232-37713dd177c3"
+			]
+		}
+	],
+	"environments": [
+		{
+			"id": "a2fb3cbc-780d-40cc-968d-ecda5d1808a4",
+			"name": "Cocktails",
+			"values": [],
+			"timestamp": 1489509975512
+		}
+	]
+}
