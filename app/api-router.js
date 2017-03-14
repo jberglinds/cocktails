@@ -6,6 +6,28 @@ let mysql = require('mysql')
 let router = express.Router();
 
 /*
+* GET /available-spirits
+* Returns all spirits and base_spirits from the db
+* id, name, abv, type
+*/
+router.get('/available-spirits', function(req, res) {
+	let connection = mysql.createConnection(require('../database/database_credentials.json'));
+	let query = `
+        (SELECT base_spirits.id, base_spirits.name
+        FROM base_spirits)
+        UNION
+	    (SELECT spirits.id, spirits.name
+		FROM spirits);
+	`
+	connection.connect()
+	connection.query(query, function (err, rows, fields) {
+		if (err) throw err
+		res.send(rows);
+	})
+	connection.end()
+})
+
+/*
 * GET /spirits
 * Returns all spirits from the db, sorted asc by name
 * id, name, abv, type
@@ -133,7 +155,7 @@ router.get('/drink/:drinkId(\\d+)', function(req, res) {
 		res.send(rows[0]);
 	})
 	connection.end()
-});
+})
 
 /*
 * GET /base_spirit/base_spiritId
@@ -153,7 +175,7 @@ router.get('/base_spirit/:base_spiritId(\\d+)', function(req, res) {
 		res.send(rows);
 	})
 	connection.end()
-});
+})
 
 /*
 * GET /events
