@@ -9,7 +9,7 @@ create table base_spirits (
     id int not null auto_increment,
     name varchar(255) unique,
     primary key (id)
-);
+) auto_increment=0 default charset=utf8;
 
 drop table if exists spirits;
 create table spirits (
@@ -20,7 +20,7 @@ create table spirits (
     type_of_liqour int,
     primary key (id),
     foreign key (type_of_liqour) references base_spirits(id)
-);
+) auto_increment=1000 default charset=utf8;
 
 drop table if exists mixers;
 create table mixers (
@@ -28,7 +28,7 @@ create table mixers (
     name varchar(255) unique,
     description text,
     primary key (id)
-);
+) auto_increment=1000 default charset=utf8;
 
 drop table if exists drinks;
 create table drinks (
@@ -40,7 +40,7 @@ create table drinks (
     spirits_json text not null,
     mixers_json text,
     primary key (id)
-);
+) default charset=utf8;
 
 drop table if exists events;
 create table events (
@@ -50,7 +50,7 @@ create table events (
     passphrase varchar(255) not null,
     start_date datetime not null,
     primary key (id)
-);
+) default charset=utf8;
 
 drop table if exists inventory_spirits;
 create table inventory_spirits (
@@ -59,7 +59,7 @@ create table inventory_spirits (
     primary key (event_id, spirit_id),
     foreign key (event_id) references events(id),
     foreign key (spirit_id) references spirits(id)
-);
+) default charset=utf8;
 
 drop table if exists inventory_mixers;
 create table inventory_mixers (
@@ -68,4 +68,4 @@ create table inventory_mixers (
     primary key (event_id, mixer_id),
     foreign key (event_id) references events(id),
     foreign key (mixer_id) references mixers(id)
-);
+) default charset=utf8;
