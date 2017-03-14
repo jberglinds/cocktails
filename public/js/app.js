@@ -76,7 +76,15 @@ app.config(function($stateProvider, $urlRouterProvider) {
         name: 'event',
         url: '/events/:id',
         templateUrl: 'views/event.html',
-        controller: 'EventController'
+        controller: 'EventController',
+        params: {
+            password: null
+        },
+        resolve: {
+            event: function(api, $stateParams) {
+                return api.getEvent($stateParams.id, $stateParams.password);
+            }
+        }
     }
 
     $stateProvider.state(welcome);

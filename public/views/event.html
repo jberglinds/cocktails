@@ -3,9 +3,9 @@
 		<div class="row align-items-center">
 			<div class="col-md-8">
 				<p class="lead mb-0">Administration</p>
-				<h1 class="display-3 mt-0">Mottagningspub</h1>
-				<p class="lead mt">Mar 10, 2017 | <i class="fa fa-key" aria-hidden="true"></i> <code>secretpassword</code></p>
-				<p class="lead mt">Description of event goes here, like onsdagspub</p>
+				<h1 class="display-3 mt-0">{{ event.name }}</h1>
+				<p class="lead mt"> {{ event.start_date | date }} | <i class="fa fa-key" aria-hidden="true"></i> <code>{{ event.passphrase }}</code></p>
+				<p class="lead mt">{{ event.description }}</p>
 			</div>
 			<div class="col-md-4 text-md-right text-left">
 				<div class="">

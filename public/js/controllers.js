@@ -80,8 +80,10 @@ angular.module('cocktails')
 	}
 ])
 
-.controller('EventController', ['$scope', 'api',
-	function($scope, api) {
+.controller('EventController', ['$scope', 'event', 'api',
+	function($scope, event, api) {
+		$scope.event = event.data;
+
 		$scope.onlyID = '\\d+';
 
 		$scope.spirits = api.getSpirits().then((response) => {
