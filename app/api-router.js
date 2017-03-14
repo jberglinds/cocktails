@@ -11,6 +11,7 @@ let router = express.Router();
 * id, name, abv, type
 */
 router.get('/available-spirits', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
         (SELECT base_spirits.id, base_spirits.name
@@ -21,8 +22,13 @@ router.get('/available-spirits', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		res.send(rows);
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+		    res.send(rows);
+        }
 	})
 	connection.end()
 })
@@ -33,6 +39,7 @@ router.get('/available-spirits', function(req, res) {
 * id, name, abv, type
 */
 router.get('/spirits', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT spirits.id, spirits.name, spirits.abv, base_spirits.name AS type
@@ -43,8 +50,13 @@ router.get('/spirits', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		res.send(rows);
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+		    res.send(rows);
+        }
 	})
 	connection.end()
 })
@@ -55,6 +67,7 @@ router.get('/spirits', function(req, res) {
 * name, abv, description, type
 */
 router.get('/spirit/:spiritId(\\d+)', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT spirits.name, spirits.abv, spirits.description, base_spirits.name AS type
@@ -65,8 +78,13 @@ router.get('/spirit/:spiritId(\\d+)', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		res.send(rows);
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+		    res.send(rows[0]);
+        }
 	})
 	connection.end()
 })
@@ -77,6 +95,7 @@ router.get('/spirit/:spiritId(\\d+)', function(req, res) {
 * id, name
 */
 router.get('/mixers', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT mixers.id, mixers.name
@@ -85,8 +104,13 @@ router.get('/mixers', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		res.send(rows);
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+		    res.send(rows);
+        }
 	})
 	connection.end()
 })
@@ -97,6 +121,7 @@ router.get('/mixers', function(req, res) {
 * name, description
 */
 router.get('/mixer/:mixerId(\\d+)', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT mixers.name, mixers.description
@@ -105,8 +130,13 @@ router.get('/mixer/:mixerId(\\d+)', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		res.send(rows);
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+		    res.send(rows[0]);
+        }
 	})
 	connection.end()
 })
@@ -117,6 +147,7 @@ router.get('/mixer/:mixerId(\\d+)', function(req, res) {
 * id, name, image url, json storing which spirits are used
 */
 router.get('/drinks', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT drinks.id, drinks.name, drinks.image_url, drinks.spirits_json
@@ -125,11 +156,16 @@ router.get('/drinks', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		for (let i = 0; i < rows.length; i++) {
-			rows[i].spirits_json = JSON.parse(rows[i].spirits_json);
-		}
-		res.send(rows);
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+            for (let i = 0; i < rows.length; i++) {
+    			rows[i].spirits_json = JSON.parse(rows[i].spirits_json);
+    		}
+    		res.send(rows);
+        }
 	})
 	connection.end()
 })
@@ -140,6 +176,7 @@ router.get('/drinks', function(req, res) {
 * name, description, image url, howto-json, spirits-json, mixers-json
 */
 router.get('/drink/:drinkId(\\d+)', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT drinks.name, drinks.description, drinks.image_url, drinks.howto_json, drinks.spirits_json, drinks.mixers_json
@@ -148,12 +185,17 @@ router.get('/drink/:drinkId(\\d+)', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		rows[0].howto_json = JSON.parse(rows[0].howto_json);
-		rows[0].spirits_json = JSON.parse(rows[0].spirits_json);
-		rows[0].mixers_json = JSON.parse(rows[0].mixers_json);
-		res.send(rows[0]);
-	})
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+    		rows[0].howto_json = JSON.parse(rows[0].howto_json);
+    		rows[0].spirits_json = JSON.parse(rows[0].spirits_json);
+    		rows[0].mixers_json = JSON.parse(rows[0].mixers_json);
+    		res.send(rows[0]);
+        }
+    })
 	connection.end()
 })
 
@@ -163,6 +205,7 @@ router.get('/drink/:drinkId(\\d+)', function(req, res) {
 * name
 */
 router.get('/base_spirit/:base_spiritId(\\d+)', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT base_spirits.name
@@ -171,8 +214,13 @@ router.get('/base_spirit/:base_spiritId(\\d+)', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		res.send(rows);
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+            res.send(rows[0]);
+        }
 	})
 	connection.end()
 })
@@ -183,6 +231,7 @@ router.get('/base_spirit/:base_spiritId(\\d+)', function(req, res) {
 * id, name, start_date
 */
 router.get('/events', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT events.id, events.name, events.start_date
@@ -191,8 +240,13 @@ router.get('/events', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		res.send(rows);
+        if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+            res.send(rows);
+        }
 	})
 	connection.end()
 })
@@ -203,6 +257,7 @@ router.get('/events', function(req, res) {
 * id, name, description, passphrase, start_date
 */
 router.get('/event/:eventId/:passphrase', function(req, res) {
+    console.log(GET_print(req.path));
 	let connection = mysql.createConnection(require('../database/database_credentials.json'));
 	let query = `
 		SELECT events.id, events.name, events.description, events.passphrase, events.start_date
@@ -212,10 +267,30 @@ router.get('/event/:eventId/:passphrase', function(req, res) {
 	`
 	connection.connect()
 	connection.query(query, function (err, rows, fields) {
-		if (err) throw err
-		res.send(rows[0]);
+		if (err) {
+            res.sendStatus(500);
+            console.log(err_print(req.path));
+            console.log(err);
+        } else {
+            res.send(rows[0]);
+        }
 	})
 	connection.end()
 });
+
+// Format a pretty print notification for receival of GET requests
+function GET_print(path) {
+    return '\x1b[32m\x1b[1mGET\x1b[0m request to \x1b[4m' + path + '\x1b[0m'
+}
+
+// Format a pretty print notification for receival of POST requests
+function POST_print(path) {
+    return '\x1b[33m\x1b[1mPOST\x1b[0m request to \x1b[4m' + path + '\x1b[0m'
+}
+
+// Format a pretty print error message
+function err_print(path) {
+    return '\x1b[31m\x1b[1mERROR\x1b[0m in request to \x1b[4m' + path + '\x1b[0m';
+}
 
 module.exports = router;
