@@ -256,18 +256,17 @@ module.exports = function(router) {
     });
 
     /*
-    * GET /event/:eventId/:passphrase
+    * GET /event/:eventId
     * Returns the event that matches the given id only if the passed passphrase is valid
     * id, name, description, passphrase, start_date
     */
-    router.get('/event/:eventId/:passphrase', function(req, res) {
+    router.get('/event/:eventId', function(req, res) {
         console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT events.id, events.name, events.description, events.passphrase, events.start_date
     		FROM events
-    		WHERE events.id=${req.params.eventId}
-            AND events.passphrase="${req.params.passphrase}";
+    		WHERE events.id=${req.params.eventId};
     	`;
     	connection.connect();
     	connection.query(query, function (err, rows, fields) {
@@ -276,7 +275,12 @@ module.exports = function(router) {
                 console.log(err_print(req.path));
                 console.log(err);
             } else {
-                res.send(rows[0]);
+                // Only send payload if the passed passphrase is correct
+                if (req.query.passphrase === rows[0].passphrase) {
+                    res.send(rows[0]);
+                } else {
+                    res.sendStatus(401);
+                }
             }
     	});
     	connection.end();
