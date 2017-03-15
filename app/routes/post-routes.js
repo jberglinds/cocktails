@@ -27,14 +27,47 @@ module.exports = function(router) {
                 console.log(err);
             } else {
                 // Check passphrase
-                if (req.body.passphrase != undefined && req.body.passphrase === rows[0].passphrase) {
-                    next();
+                if (req.body != undefined) {
+                    if (req.body.passphrase != undefined && req.body.passphrase === rows[0].passphrase) {
+                        next();
+                    } else {
+                        res.sendStatus(401);
+                    }
                 } else {
-                    res.sendStatus(401);
+                    res.sendStatus(400);
                 }
             }
         });
         connection.end();
+    });
+
+    /*
+    * POST /events/:eventsId/add-spirit
+    * eventId as url-param, passphrase as post body-param
+    */
+    router.post('/events/:eventId/add-spirit', function(req, res) {
+        if (req.body.spiritId === undefined) {
+            res.sendStatus(400);
+        } else {
+            let connection = mysql.createConnection(database_credentials);
+            let query = `
+                INSERT IGNORE INTO inventory_spirits
+                    (event_id, spirit_id)
+                VALUES
+                    (${req.params.eventId}, ${req.body.spiritId});
+            `;
+            connection.connect();
+            connection.query(query, function (err, rows, fields) {
+                if (err) {
+                    res.sendStatus(500);
+                    console.log(err_print(req.path));
+                    console.log(err);
+                } else {
+                    res.sendStatus(201);
+                }
+            });
+            connection.end();
+        }
     });
 
 };
