@@ -1,7 +1,6 @@
 "use strict";
 
 let mysql = require('mysql');
-let sync = require('synchronized');
 let database_credentials = require('../../database/database_credentials.json');
 
 /*
@@ -342,6 +341,63 @@ module.exports = function(router) {
          });
         connection.end();
     });
+
+    /*
+    * GET /events/:eventId/mixers
+    * Returns all mixers listed in the inventory for the passed event, sorted asc by name
+    * id, name, abv, type
+    */
+    router.get('/events/:eventId/mixers', function(req, res) {
+        console.log(GET_print(req.path));
+        let connection = mysql.createConnection(database_credentials);
+        let query = `
+            SELECT passphrase
+            FROM events
+            WHERE events.id=${req.params.eventId};
+        `;
+        connection.connect();
+        connection.query(query, function (err, rows, fields) {
+             if (err) {
+                 res.sendStatus(500);
+                 console.log(err_print(req.path));
+                 console.log(err);
+             } else {
+                 // Check passphrase
+                 if (req.query.passphrase != undefined && req.query.passphrase === rows[0].passphrase) {
+
+                     function query() {
+                         let connection = mysql.createConnection(database_credentials);
+                         let data_query = `
+                             SELECT inventory_spirits.spirit_id, mixers.name
+                             FROM inventory_spirits
+                             JOIN mixers
+                             ON mixers.id=inventory_spirits.spirit_id
+                             WHERE inventory_spirits.event_id=${req.params.eventId};
+                         `;
+                         connection.connect();
+                         connection.query(data_query, function (data_err, data_rows, data_fields) {
+                              if (data_err) {
+                                  res.sendStatus(500);
+                                  console.log(err_print(req.path));
+                                  console.log(data_err);
+                              } else {
+                                  res.send(data_rows);
+                              }
+                        });
+                         connection.end();
+                     };
+
+                     // Query the inventory for the specified event
+                     query();
+
+                 } else {
+                     res.sendStatus(401);
+                 }
+             }
+         });
+        connection.end();
+    });
+
 };
 
 // Format a pretty print notification for receival of GET requests
