@@ -106,7 +106,7 @@ NSString *const EVENTS_API_ENDPOINT = @"http://localhost:8080/api/events";
                                                               NSString *password = alert.textFields.firstObject.text;
 
                                                               AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-                                                              [manager GET:[EVENTS_API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/%ld", (long)event.id]] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                                                              [manager GET:[EVENTS_API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/%ld?passphrase=%@", (long)event.id, password]] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
                                                                   NSLog(@"Success: %@", responseObject);
                                                                   event.password = password;
                                                                   self.eventForSegue = event;
