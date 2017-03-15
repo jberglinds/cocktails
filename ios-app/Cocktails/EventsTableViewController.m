@@ -9,10 +9,13 @@
 #import "EventsTableViewController.h"
 #import "AFNetworking.h"
 #import "EventInfo.h"
+#import "InventoryTableViewController.h"
 
 @interface EventsTableViewController ()
 @property (strong, nonatomic) NSMutableArray *events; // of EventInfo
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
+
+@property (strong, nonatomic) EventInfo *eventForSegue;
 @end
 
 @implementation EventsTableViewController
@@ -33,7 +36,7 @@ NSString *const EVENTS_API_ENDPOINT = @"http://localhost:8080/api/events";
     [manager GET:EVENTS_API_ENDPOINT parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"Success: %@", responseObject);
         for (NSDictionary *event in responseObject) {
-            EventInfo *eventInfo = [[EventInfo alloc] initWithId:(long)event[@"id"] name:event[@"name"] andDate:[self.dateFormatter dateFromString:event[@"start_date"]]];
+            EventInfo *eventInfo = [[EventInfo alloc] initWithId:[event[@"id"] integerValue] name:event[@"name"] andDate:[self.dateFormatter dateFromString:event[@"start_date"]]];
             [self.events addObject:eventInfo];
         }
         [self.tableView reloadData];
@@ -100,7 +103,19 @@ NSString *const EVENTS_API_ENDPOINT = @"http://localhost:8080/api/events";
 
     UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Enter" style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction * action) {
-                                                              [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+                                                              NSString *password = alert.textFields.firstObject.text;
+
+                                                              AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+                                                              [manager GET:[EVENTS_API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/%ld", (long)event.id]] parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+                                                                  NSLog(@"Success: %@", responseObject);
+                                                                  event.password = password;
+                                                                  self.eventForSegue = event;
+                                                                  [self performSegueWithIdentifier:@"showInventory" sender:self];
+                                                              } failure:^(NSURLSessionDataTask *task, NSError *error) {
+                                                                  NSLog(@"Fail: %@", error);
+                                                                  self.eventForSegue = nil;
+                                                              }];
+
                                                           }];
 
     [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
@@ -147,14 +162,22 @@ NSString *const EVENTS_API_ENDPOINT = @"http://localhost:8080/api/events";
 }
 */
 
-/*
-#pragma mark - Navigation
+//- (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+//    if ([identifier isEqualToString:@"showInventory"]) {
+//
+//        return YES;
+//    }
+//
+//    return [super shouldPerformSegueWithIdentifier:identifier sender:sender];
+//}
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
+#pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"showInventory"]) {
+        InventoryTableViewController *destinationVC = segue.destinationViewController;
+        destinationVC.event = self.eventForSegue;
+    }
 }
-*/
+
 
 @end

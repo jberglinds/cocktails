@@ -16,5 +16,5 @@
 @property (nonatomic, readonly) NSInteger id;
 @property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong, readonly) NSDate *startDate;
-
+@property (nonatomic, strong) NSString *password;
 @end
