@@ -70,6 +70,33 @@ module.exports = function(router) {
         }
     });
 
+    /*
+    * POST /events/:eventsId/remove-spirit
+    * eventId as url-param, passphrase as post body-param
+    */
+    router.post('/events/:eventId/remove-spirit', function(req, res) {
+        if (req.body.spiritId === undefined) {
+            res.sendStatus(400);
+        } else {
+            let connection = mysql.createConnection(database_credentials);
+            let query = `
+                DELETE FROM inventory_spirits
+                WHERE inventory_spirits.event_id=${req.params.eventId}
+                AND inventory_spirits.spirit_id=${req.body.spiritId};
+            `;
+            connection.connect();
+            connection.query(query, function (err, rows, fields) {
+                if (err) {
+                    res.sendStatus(500);
+                    console.log(err_print(req.path));
+                    console.log(err);
+                } else {
+                    res.sendStatus(200);
+                }
+            });
+            connection.end();
+        }
+    });
 
     /*
     * POST /events/:eventsId/add-mixer
