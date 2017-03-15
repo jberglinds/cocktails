@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EventInfo.h"
 
-@interface InventoryTableViewController : UITableViewController
+@interface SpiritInventoryTableViewController : UITableViewController
 
 @property (strong, nonatomic) EventInfo *event;
 

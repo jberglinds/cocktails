@@ -47,6 +47,16 @@ NSString *const API_ENDPOINT = @"http://localhost:8080/api";
     [self getFromUrl:url :completion];
 }
 
+- (void)getMixers:(void(^)(NSArray *))completion {
+    NSString *url = [API_ENDPOINT stringByAppendingString:@"/mixers"];
+    [self getFromUrl:url :completion];
+}
+
+- (void)getMixersInInventoryForEventWithId:(NSInteger)id withPassword:(NSString *)password :(void(^)(NSArray *))completion {
+    NSString *url = [API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/events/%ld/mixers?passphrase=%@", (long)id, password]];
+    [self getFromUrl:url :completion];
+}
+
 - (void)addSpiritWithId: (NSInteger)spiritId ToInventoryForEventWithId:(NSInteger)eventId withPassword:(NSString *)password :(void (^)(NSURLSessionDataTask *, NSArray *))completion {
     NSString *url = [API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/events/%ld/add-spirit", (long)eventId]];
     NSDictionary *params = [[NSMutableDictionary alloc] init];
@@ -60,6 +70,22 @@ NSString *const API_ENDPOINT = @"http://localhost:8080/api";
     NSDictionary *params = [[NSMutableDictionary alloc] init];
     [params setValue:password forKey:@"passphrase"];
     [params setValue:@(spiritId) forKey:@"spiritId"];
+    [self postToUrl:url withParams:params :completion];
+}
+
+- (void)addMixerWithId: (NSInteger)mixerId ToInventoryForEventWithId:(NSInteger)eventId withPassword:(NSString *)password :(void (^)(NSURLSessionDataTask *, NSArray *))completion {
+    NSString *url = [API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/events/%ld/add-mixer", (long)eventId]];
+    NSDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setValue:password forKey:@"passphrase"];
+    [params setValue:@(mixerId) forKey:@"mixerId"];
+    [self postToUrl:url withParams:params :completion];
+}
+
+- (void)removeMixerWithId:(NSInteger)mixerId FromInventoryForEventWithId:(NSInteger)eventId withPassword:(NSString *)password :(void (^)(NSURLSessionDataTask *, NSArray *))completion {
+    NSString *url = [API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/events/%ld/remove-mixer", (long)eventId]];
+    NSDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setValue:password forKey:@"passphrase"];
+    [params setValue:@(mixerId) forKey:@"mixerId"];
     [self postToUrl:url withParams:params :completion];
 }
 

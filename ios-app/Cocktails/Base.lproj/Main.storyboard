@@ -61,7 +61,7 @@
         <!--Spirits-->
         <scene sceneID="lYZ-vd-Z3D">
             <objects>
-                <tableViewController title="Spirits" id="Tb5-NQ-lSi" customClass="InventoryTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Spirits" id="Tb5-NQ-lSi" customClass="SpiritInventoryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="iB6-Sn-iKn">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,7 +105,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rEz-xf-GKo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2868" y="-9"/>
+            <point key="canvasLocation" x="2990" y="-216"/>
         </scene>
         <!--Event-->
         <scene sceneID="T9j-sb-Dh7">
@@ -123,7 +123,7 @@
                                 <rect key="frame" x="137" y="318" width="101" height="30"/>
                                 <state key="normal" title="Manage spirits"/>
                                 <connections>
-                                    <segue destination="Tb5-NQ-lSi" kind="show" identifier="showInventory" id="V4x-vY-zmo"/>
+                                    <segue destination="Tb5-NQ-lSi" kind="show" identifier="showSpiritInventory" id="V4x-vY-zmo"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d7Y-Gq-1Nu">
@@ -141,6 +141,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4x-m8-cIJ">
                                 <rect key="frame" x="135" y="356" width="104" height="30"/>
                                 <state key="normal" title="Manage mixers"/>
+                                <connections>
+                                    <segue destination="blt-X0-zfc" kind="show" identifier="showMixerInventory" id="x19-J1-x45"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -183,6 +186,55 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FWs-pr-4ZL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="572" y="-8"/>
+        </scene>
+        <!--Mixers-->
+        <scene sceneID="0rh-A3-xAb">
+            <objects>
+                <tableViewController title="Mixers" id="blt-X0-zfc" customClass="MixerInventoryTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="F1b-ej-89w">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="z9v-Pc-4U6">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="mixer" textLabel="775-yy-R9N" detailTextLabel="vIz-n2-8Dw" style="IBUITableViewCellStyleSubtitle" id="mLq-gr-I7c">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mLq-gr-I7c" id="ztp-Hz-R1x">
+                                    <rect key="frame" x="0.0" y="0.0" width="336" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="775-yy-R9N">
+                                            <rect key="frame" x="15" y="4" width="34" height="21"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vIz-n2-8Dw">
+                                            <rect key="frame" x="15" y="25" width="44" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="blt-X0-zfc" id="KVY-PS-Nwn"/>
+                            <outlet property="delegate" destination="blt-X0-zfc" id="t4q-jr-ODX"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YAa-Lk-Maf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2990" y="439"/>
         </scene>
     </scenes>
 </document>

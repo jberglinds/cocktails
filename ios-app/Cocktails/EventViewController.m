@@ -7,7 +7,8 @@
 //
 
 #import "EventViewController.h"
-#import "InventoryTableViewController.h"
+#import "SpiritInventoryTableViewController.h"
+#import "MixerInventoryTableViewController.h"
 
 @interface EventViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *eventNameLabel;
@@ -32,8 +33,12 @@
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showInventory"]) {
-        InventoryTableViewController *destinationVC = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"showSpiritInventory"]) {
+        SpiritInventoryTableViewController *destinationVC = segue.destinationViewController;
+        destinationVC.event = self.event;
+    }
+    if ([segue.identifier isEqualToString:@"showMixerInventory"]) {
+        MixerInventoryTableViewController *destinationVC = segue.destinationViewController;
         destinationVC.event = self.event;
     }
 }
