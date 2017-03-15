@@ -43,6 +43,12 @@
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    
+    searchBar.delegate = self;
+    
+    self.tableView.tableHeaderView = searchBar;
 }
 
 - (NSMutableDictionary *)availableSpirits {
