@@ -12,7 +12,7 @@ module.exports = function(router) {
     /*
     * Passphrase authorization for all GET requests to /events/:eventId
     */
-    router.get('/events/:eventId/*', function(req, res, next) {
+    router.get('/events/:eventId(\\d+)', function(req, res, next) {
         let connection = mysql.createConnection(database_credentials);
         let auth_query = `
             SELECT passphrase

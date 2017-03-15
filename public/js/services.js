@@ -8,7 +8,7 @@ angular.module('cocktails.api', [])
 		}
 
 		function getDrink(id) {
-			return $http.get("/api/drink/"+id);
+			return $http.get("/api/drinks/"+id);
 		}
 
 		function getSpirits() {
@@ -24,7 +24,7 @@ angular.module('cocktails.api', [])
 		}
 
 		function getEvent(id, password) {
-			return $http.get("/api/event/"+id, {
+			return $http.get("/api/events/"+id, {
 				params: {
 					'passphrase': password
 				}
