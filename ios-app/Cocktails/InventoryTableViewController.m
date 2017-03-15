@@ -7,9 +7,13 @@
 //
 
 #import "InventoryTableViewController.h"
+#import "InventoryObject.h"
+#import "CocktailsAPI.h"
 
 @interface InventoryTableViewController ()
-
+@property (strong, nonatomic) NSMutableDictionary *availableSpirits;
+@property (strong, nonatomic) NSMutableDictionary *spiritsInInventory;
+@property (strong, nonatomic) CocktailsAPI *API;
 @end
 
 @implementation InventoryTableViewController
@@ -22,6 +26,41 @@
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    [self.API getSpirits:^(NSArray *response) {
+        for (NSDictionary *entry in response) {
+            InventoryObject *spirit = [[InventoryObject alloc] initWithId:[entry[@"id"] integerValue] name:entry[@"name"] andType:entry[@"type"]];
+            [self.availableSpirits setValue:spirit forKey:spirit.name];
+            [self.tableView reloadData];
+        }
+    }];
+
+    [self.API getSpiritsInInventoryForEventWithId:self.event.id withPassword:self.event.password :^(NSArray *response) {
+        for (NSDictionary *entry in response) {
+            NSLog(@"%@", entry);
+            InventoryObject *spirit = self.availableSpirits[entry[@"name"]];
+            [self.spiritsInInventory setValue:spirit forKey:spirit.name];
+            [self.tableView reloadData];
+        }
+    }];
+
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+}
+
+- (NSMutableDictionary *)availableSpirits {
+    if (!_availableSpirits) _availableSpirits = [[NSMutableDictionary alloc] init];
+    return _availableSpirits;
+}
+
+- (NSMutableDictionary *)spiritsInInventory {
+    if (!_spiritsInInventory) _spiritsInInventory = [[NSMutableDictionary alloc] init];
+    return _spiritsInInventory;
+}
+
+- (CocktailsAPI *)API {
+    if (!_API) _API = [[CocktailsAPI alloc] init];
+    return _API;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,26 +69,32 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.availableSpirits count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
 
-    // Configure the cell...
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"spirit" forIndexPath:indexPath];
+
+    InventoryObject *spirit = [self.availableSpirits allValues][indexPath.row];
+
+    if ([self.spiritsInInventory valueForKey:spirit.name]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
+
+    cell.textLabel.text = spirit.name;
+    cell.detailTextLabel.text = spirit.type;
 
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.
