@@ -155,6 +155,42 @@ module.exports = function(router) {
         }
     });
 
+    /*
+    * POST /events/add
+    * name, description and passphrase
+    */
+    router.post('/events/add', function(req, res) {
+        if (req.body.name === undefined || req.body.description === undefined ||
+            req.body.date === undefined || req.body.passphrase === undefined){
+            res.sendStatus(400);
+        } else {
+            let connection = mysql.createConnection(database_credentials);
+            let query = `
+                INSERT IGNORE INTO events
+                    (name, description, passphrase, start_date)
+                VALUES
+                    (
+                        "${req.body.name}",
+                        "${req.body.description}",
+                        "${req.body.passphrase}",
+                        "${req.body.date}"
+                    );
+            `;
+            connection.connect();
+            connection.query(query, function (err, rows, fields) {
+                if (err) {
+                    res.sendStatus(500);
+                    console.log(err_print(req.path));
+                    console.log(err);
+                } else {
+                    res.sendStatus(204);
+                }
+            });
+            connection.end();
+        }
+    });
+
+
 };
 
 // Format a pretty print error message
