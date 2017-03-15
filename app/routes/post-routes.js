@@ -63,7 +63,7 @@ module.exports = function(router) {
                     console.log(err_print(req.path));
                     console.log(err);
                 } else {
-                    res.sendStatus(201);
+                    res.sendStatus(204);
                 }
             });
             connection.end();
@@ -91,7 +91,7 @@ module.exports = function(router) {
                     console.log(err_print(req.path));
                     console.log(err);
                 } else {
-                    res.sendStatus(200);
+                    res.sendStatus(204);
                 }
             });
             connection.end();
@@ -120,7 +120,7 @@ module.exports = function(router) {
                     console.log(err_print(req.path));
                     console.log(err);
                 } else {
-                    res.sendStatus(201);
+                    res.sendStatus(204);
                 }
             });
             connection.end();
@@ -148,7 +148,7 @@ module.exports = function(router) {
                     console.log(err_print(req.path));
                     console.log(err);
                 } else {
-                    res.sendStatus(200);
+                    res.sendStatus(204);
                 }
             });
             connection.end();
