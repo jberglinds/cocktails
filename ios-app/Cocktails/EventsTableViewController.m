@@ -9,7 +9,7 @@
 #import "EventsTableViewController.h"
 #import "AFNetworking.h"
 #import "EventInfo.h"
-#import "InventoryTableViewController.h"
+#import "EventViewController.h"
 
 @interface EventsTableViewController ()
 @property (strong, nonatomic) NSMutableArray *events; // of EventInfo
@@ -110,7 +110,7 @@ NSString *const EVENTS_API_ENDPOINT = @"http://localhost:8080/api/events";
                                                                   NSLog(@"Success: %@", responseObject);
                                                                   event.password = password;
                                                                   self.eventForSegue = event;
-                                                                  [self performSegueWithIdentifier:@"showInventory" sender:self];
+                                                                  [self performSegueWithIdentifier:@"showEvent" sender:self];
                                                               } failure:^(NSURLSessionDataTask *task, NSError *error) {
                                                                   NSLog(@"Fail: %@", error);
                                                                   self.eventForSegue = nil;
@@ -173,8 +173,8 @@ NSString *const EVENTS_API_ENDPOINT = @"http://localhost:8080/api/events";
 
 #pragma mark - Navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showInventory"]) {
-        InventoryTableViewController *destinationVC = segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"showEvent"]) {
+        EventViewController *destinationVC = segue.destinationViewController;
         destinationVC.event = self.eventForSegue;
     }
 }

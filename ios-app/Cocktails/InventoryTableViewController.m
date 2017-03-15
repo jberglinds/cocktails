@@ -31,17 +31,17 @@
         for (NSDictionary *entry in response) {
             InventoryObject *spirit = [[InventoryObject alloc] initWithId:[entry[@"id"] integerValue] name:entry[@"name"] andType:entry[@"type"]];
             [self.availableSpirits setValue:spirit forKey:spirit.name];
-            [self.tableView reloadData];
         }
+        [self.API getSpiritsInInventoryForEventWithId:self.event.id withPassword:self.event.password :^(NSArray *response) {
+            for (NSDictionary *entry in response) {
+                InventoryObject *spirit = self.availableSpirits[entry[@"name"]];
+                [self.spiritsInInventory setValue:spirit forKey:spirit.name];
+            }
+            [self.tableView reloadData];
+        }];
     }];
 
-    [self.API getSpiritsInInventoryForEventWithId:self.event.id withPassword:self.event.password :^(NSArray *response) {
-        for (NSDictionary *entry in response) {
-            InventoryObject *spirit = self.availableSpirits[entry[@"name"]];
-            [self.spiritsInInventory setValue:spirit forKey:spirit.name];
-            [self.tableView reloadData];
-        }
-    }];
+    
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -104,7 +104,7 @@
             }
         }];
     } else {
-        [self.API addSpiritWithId:spirit.id ToInventoryForEventWithId:self.event.id withPassword:self.event.password :^(NSURLSessionDataTask *task,     NSArray *response) {
+        [self.API addSpiritWithId:spirit.id ToInventoryForEventWithId:self.event.id withPassword:self.event.password :^(NSURLSessionDataTask *task, NSArray *response) {
             if (((NSHTTPURLResponse *)task.response).statusCode == 204) {
                 [self.spiritsInInventory setValue:spirit forKey:spirit.name];
                 [self.tableView reloadData];
