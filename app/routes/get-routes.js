@@ -10,12 +10,39 @@ let database_credentials = require('../../database/database_credentials.json');
 module.exports = function(router) {
 
     /*
+    * Passphrase authorization for all GET requests to /events/:eventId
+    */
+    router.get('/events/:eventId/*', function(req, res, next) {
+        let connection = mysql.createConnection(database_credentials);
+        let auth_query = `
+            SELECT passphrase
+            FROM events
+            WHERE events.id=${req.params.eventId};
+        `;
+        connection.connect();
+        connection.query(auth_query, function (err, rows, fields) {
+            if (err) {
+                res.sendStatus(500);
+                console.log(err_print(req.path));
+                console.log(err);
+            } else {
+                // Check passphrase
+                if (req.query.passphrase != undefined && req.query.passphrase === rows[0].passphrase) {
+                    next();
+                } else {
+                    res.sendStatus(401);
+                }
+            }
+        });
+        connection.end();
+    });
+
+    /*
     * GET /available-spirits
     * Returns all spirits and base_spirits from the db
     * id, name, abv, type
     */
     router.get('/available-spirits', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
             (SELECT base_spirits.id, base_spirits.name
@@ -43,7 +70,6 @@ module.exports = function(router) {
     * id, name, abv, type
     */
     router.get('/spirits', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT spirits.id, spirits.name, spirits.abv, base_spirits.name AS type
@@ -71,7 +97,6 @@ module.exports = function(router) {
     * name, abv, description, type
     */
     router.get('/spirits/:spiritId(\\d+)', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT spirits.name, spirits.abv, spirits.description, base_spirits.name AS type
@@ -99,7 +124,6 @@ module.exports = function(router) {
     * id, name
     */
     router.get('/mixers', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT mixers.id, mixers.name
@@ -125,7 +149,6 @@ module.exports = function(router) {
     * name, description
     */
     router.get('/mixers/:mixerId(\\d+)', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT mixers.name, mixers.description
@@ -151,7 +174,6 @@ module.exports = function(router) {
     * id, name, image url, json storing which spirits are used
     */
     router.get('/drinks', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT drinks.id, drinks.name, drinks.image_url, drinks.spirits_json
@@ -180,7 +202,6 @@ module.exports = function(router) {
     * name, description, image url, howto-json, spirits-json, mixers-json
     */
     router.get('/drinks/:drinkId(\\d+)', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT drinks.name, drinks.description, drinks.image_url, drinks.howto_json, drinks.spirits_json, drinks.mixers_json
@@ -209,7 +230,6 @@ module.exports = function(router) {
     * name
     */
     router.get('/base_spirit/:base_spiritId(\\d+)', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT base_spirits.name
@@ -235,7 +255,6 @@ module.exports = function(router) {
     * id, name, start_date
     */
     router.get('/events', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT events.id, events.name, events.start_date
@@ -261,7 +280,6 @@ module.exports = function(router) {
     * id, name, description, passphrase, start_date
     */
     router.get('/events/:eventId(\\d+)', function(req, res) {
-        console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
     		SELECT events.id, events.name, events.description, events.passphrase, events.start_date
@@ -287,7 +305,6 @@ module.exports = function(router) {
     * id, name, abv, type
     */
     router.get('/events/:eventId/spirits', function(req, res) {
-        console.log(GET_print(req.path));
         let connection = mysql.createConnection(database_credentials);
         let data_query = `
             SELECT inventory_spirits.spirit_id, spirits.name
@@ -315,7 +332,6 @@ module.exports = function(router) {
     * id, name
     */
     router.get('/events/:eventId/mixers', function(req, res) {
-        console.log(GET_print(req.path));
         let connection = mysql.createConnection(database_credentials);
         let query = `
              SELECT inventory_mixers.mixer_id, mixers.name
@@ -338,11 +354,6 @@ module.exports = function(router) {
     });
 
 };
-
-// Format a pretty print notification for receival of GET requests
-function GET_print(path) {
-    return '\x1b[32m\x1b[1mGET\x1b[0m request to \x1b[4m' + path + '\x1b[0m';
-}
 
 // Format a pretty print error message
 function err_print(path) {
