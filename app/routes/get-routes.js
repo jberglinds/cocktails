@@ -257,7 +257,7 @@ module.exports = function(router) {
 
     /*
     * GET /events/:eventId
-    * Returns the event that matches the given id only if the passed passphrase is valid
+    * Returns the event that matches the given id
     * id, name, description, passphrase, start_date
     */
     router.get('/events/:eventId(\\d+)', function(req, res) {
@@ -275,12 +275,7 @@ module.exports = function(router) {
                 console.log(err_print(req.path));
                 console.log(err);
             } else {
-                // Only send payload if the passed passphrase is defined and correct
-                if (req.query.passphrase != undefined && req.query.passphrase === rows[0].passphrase) {
-                    res.send(rows[0]);
-                } else {
-                    res.sendStatus(401);
-                }
+                res.send(rows[0]);
             }
     	});
     	connection.end();
@@ -293,108 +288,52 @@ module.exports = function(router) {
     */
     router.get('/events/:eventId/spirits', function(req, res) {
         console.log(GET_print(req.path));
-    	let connection = mysql.createConnection(database_credentials);
-	    let query = `
-    		SELECT passphrase
-    		FROM events
-            WHERE events.id=${req.params.eventId};
-    	`;
+        let connection = mysql.createConnection(database_credentials);
+        let data_query = `
+            SELECT inventory_spirits.spirit_id, spirits.name
+            FROM inventory_spirits
+            JOIN spirits
+            ON spirits.id=inventory_spirits.spirit_id
+            WHERE inventory_spirits.event_id=${req.params.eventId};
+        `;
         connection.connect();
-        connection.query(query, function (err, rows, fields) {
-             if (err) {
-                 res.sendStatus(500);
-                 console.log(err_print(req.path));
-                 console.log(err);
-             } else {
-                 // Check passphrase
-                 if (req.query.passphrase != undefined && req.query.passphrase === rows[0].passphrase) {
-
-                     function query() {
-                         let connection = mysql.createConnection(database_credentials);
-                         let data_query = `
-                             SELECT inventory_spirits.spirit_id, spirits.name
-                             FROM inventory_spirits
-                             JOIN spirits
-                             ON spirits.id=inventory_spirits.spirit_id
-                             WHERE inventory_spirits.event_id=${req.params.eventId};
-                         `;
-                         connection.connect();
-                      	 connection.query(data_query, function (data_err, data_rows, data_fields) {
-                              if (data_err) {
-                                  res.sendStatus(500);
-                                  console.log(err_print(req.path));
-                                  console.log(data_err);
-                              } else {
-                                  res.send(data_rows);
-                              }
-                      	});
-                         connection.end();
-                     };
-
-                     // Query the inventory for the specified event
-                     query();
-
-                 } else {
-                     res.sendStatus(401);
-                 }
-             }
-         });
+        connection.query(data_query, function (data_err, data_rows, data_fields) {
+            if (data_err) {
+                res.sendStatus(500);
+                console.log(err_print(req.path));
+                console.log(data_err);
+            } else {
+                res.send(data_rows);
+            }
+        });
         connection.end();
     });
 
     /*
     * GET /events/:eventId/mixers
     * Returns all mixers listed in the inventory for the passed event, sorted asc by name
-    * id, name, abv, type
+    * id, name
     */
     router.get('/events/:eventId/mixers', function(req, res) {
         console.log(GET_print(req.path));
         let connection = mysql.createConnection(database_credentials);
         let query = `
-            SELECT passphrase
-            FROM events
-            WHERE events.id=${req.params.eventId};
+             SELECT inventory_mixers.mixer_id, mixers.name
+             FROM inventory_mixers
+             JOIN mixers
+             ON mixers.id=inventory_mixers.mixer_id
+             WHERE inventory_mixers.event_id=${req.params.eventId};
         `;
         connection.connect();
         connection.query(query, function (err, rows, fields) {
-             if (err) {
-                 res.sendStatus(500);
-                 console.log(err_print(req.path));
-                 console.log(err);
-             } else {
-                 // Check passphrase
-                 if (req.query.passphrase != undefined && req.query.passphrase === rows[0].passphrase) {
-
-                     function query() {
-                         let connection = mysql.createConnection(database_credentials);
-                         let data_query = `
-                             SELECT inventory_spirits.spirit_id, mixers.name
-                             FROM inventory_spirits
-                             JOIN mixers
-                             ON mixers.id=inventory_spirits.spirit_id
-                             WHERE inventory_spirits.event_id=${req.params.eventId};
-                         `;
-                         connection.connect();
-                         connection.query(data_query, function (data_err, data_rows, data_fields) {
-                              if (data_err) {
-                                  res.sendStatus(500);
-                                  console.log(err_print(req.path));
-                                  console.log(data_err);
-                              } else {
-                                  res.send(data_rows);
-                              }
-                        });
-                         connection.end();
-                     };
-
-                     // Query the inventory for the specified event
-                     query();
-
-                 } else {
-                     res.sendStatus(401);
-                 }
-             }
-         });
+            if (err) {
+            res.sendStatus(500);
+                console.log(err_print(req.path));
+                console.log(err);
+            } else {
+                res.send(rows);
+            }
+        });
         connection.end();
     });
 
