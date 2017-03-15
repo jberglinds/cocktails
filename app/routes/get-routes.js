@@ -70,7 +70,7 @@ module.exports = function(router) {
     * Returns the spirit that matches spiritId from the db
     * name, abv, description, type
     */
-    router.get('/spirit/:spiritId(\\d+)', function(req, res) {
+    router.get('/spirits/:spiritId(\\d+)', function(req, res) {
         console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
@@ -124,7 +124,7 @@ module.exports = function(router) {
     * Returns the mixer that matches mixerId from the db
     * name, description
     */
-    router.get('/mixer/:mixerId(\\d+)', function(req, res) {
+    router.get('/mixers/:mixerId(\\d+)', function(req, res) {
         console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
@@ -179,7 +179,7 @@ module.exports = function(router) {
     * Returns the drink that matches drinkId from the db
     * name, description, image url, howto-json, spirits-json, mixers-json
     */
-    router.get('/drink/:drinkId(\\d+)', function(req, res) {
+    router.get('/drinks/:drinkId(\\d+)', function(req, res) {
         console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
@@ -256,11 +256,11 @@ module.exports = function(router) {
     });
 
     /*
-    * GET /event/:eventId
+    * GET /events/:eventId
     * Returns the event that matches the given id only if the passed passphrase is valid
     * id, name, description, passphrase, start_date
     */
-    router.get('/event/:eventId', function(req, res) {
+    router.get('/events/:eventId(\\d+)', function(req, res) {
         console.log(GET_print(req.path));
     	let connection = mysql.createConnection(database_credentials);
     	let query = `
@@ -275,8 +275,8 @@ module.exports = function(router) {
                 console.log(err_print(req.path));
                 console.log(err);
             } else {
-                // Only send payload if the passed passphrase is correct
-                if (req.query.passphrase === rows[0].passphrase) {
+                // Only send payload if the passed passphrase is defined and correct
+                if (req.query.passphrase != undefined && req.query.passphrase === rows[0].passphrase) {
                     res.send(rows[0]);
                 } else {
                     res.sendStatus(401);
