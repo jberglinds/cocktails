@@ -127,6 +127,34 @@ module.exports = function(router) {
         }
     });
 
+    /*
+    * POST /events/:eventsId/remove-mixer
+    * eventId as url-param, passphrase as post body-param
+    */
+    router.post('/events/:eventId/remove-mixer', function(req, res) {
+        if (req.body.mixerId === undefined) {
+            res.sendStatus(400);
+        } else {
+            let connection = mysql.createConnection(database_credentials);
+            let query = `
+                DELETE FROM inventory_mixers
+                WHERE inventory_mixers.event_id=${req.params.eventId}
+                AND inventory_mixers.mixer_id=${req.body.mixerId};
+            `;
+            connection.connect();
+            connection.query(query, function (err, rows, fields) {
+                if (err) {
+                    res.sendStatus(500);
+                    console.log(err_print(req.path));
+                    console.log(err);
+                } else {
+                    res.sendStatus(200);
+                }
+            });
+            connection.end();
+        }
+    });
+
 };
 
 // Format a pretty print error message
