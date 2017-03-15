@@ -37,7 +37,6 @@
 
     [self.API getSpiritsInInventoryForEventWithId:self.event.id withPassword:self.event.password :^(NSArray *response) {
         for (NSDictionary *entry in response) {
-            NSLog(@"%@", entry);
             InventoryObject *spirit = self.availableSpirits[entry[@"name"]];
             [self.spiritsInInventory setValue:spirit forKey:spirit.name];
             [self.tableView reloadData];
@@ -93,6 +92,26 @@
     cell.detailTextLabel.text = spirit.type;
 
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    InventoryObject *spirit = [self.availableSpirits allValues][indexPath.row];
+    if ([self.spiritsInInventory objectForKey:spirit.name]) {
+        [self.API removeSpiritWithId:spirit.id FromInventoryForEventWithId:self.event.id withPassword:self.event.password :^(NSURLSessionDataTask *task, NSArray *response) {
+            if (((NSHTTPURLResponse *)task.response).statusCode == 204) {
+                [self.spiritsInInventory removeObjectForKey:spirit.name];
+                [self.tableView reloadData];
+            }
+        }];
+    } else {
+        [self.API addSpiritWithId:spirit.id ToInventoryForEventWithId:self.event.id withPassword:self.event.password :^(NSURLSessionDataTask *task,     NSArray *response) {
+            if (((NSHTTPURLResponse *)task.response).statusCode == 204) {
+                [self.spiritsInInventory setValue:spirit forKey:spirit.name];
+                [self.tableView reloadData];
+            }
+        }];
+    }
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

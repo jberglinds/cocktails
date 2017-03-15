@@ -43,9 +43,26 @@ NSString *const API_ENDPOINT = @"http://localhost:8080/api";
 }
 
 - (void)getSpiritsInInventoryForEventWithId:(NSInteger)id withPassword:(NSString *)password :(void(^)(NSArray *))completion {
-    NSString *url = [API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/events/%ld/spirits?%@", (long)id, password]];
+    NSString *url = [API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/events/%ld/spirits?passphrase=%@", (long)id, password]];
     [self getFromUrl:url :completion];
 }
+
+- (void)addSpiritWithId: (NSInteger)spiritId ToInventoryForEventWithId:(NSInteger)eventId withPassword:(NSString *)password :(void (^)(NSURLSessionDataTask *, NSArray *))completion {
+    NSString *url = [API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/events/%ld/add-spirit", (long)eventId]];
+    NSDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setValue:password forKey:@"passphrase"];
+    [params setValue:@(spiritId) forKey:@"spiritId"];
+    [self postToUrl:url withParams:params :completion];
+}
+
+- (void)removeSpiritWithId:(NSInteger)spiritId FromInventoryForEventWithId:(NSInteger)eventId withPassword:(NSString *)password :(void (^)(NSURLSessionDataTask *, NSArray *))completion {
+    NSString *url = [API_ENDPOINT stringByAppendingString:[NSString stringWithFormat:@"/events/%ld/remove-spirit", (long)eventId]];
+    NSDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setValue:password forKey:@"passphrase"];
+    [params setValue:@(spiritId) forKey:@"spiritId"];
+    [self postToUrl:url withParams:params :completion];
+}
+
 
 - (void)getFromUrl:(NSString *)url :(void(^)(NSArray *))completion {
     [self.manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -54,6 +71,16 @@ NSString *const API_ENDPOINT = @"http://localhost:8080/api";
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"Failure: (GET : %@) \nReason: %@", url, error);
         completion(nil);
+    }];
+}
+
+- (void)postToUrl:(NSString *)url withParams:(NSDictionary *)params :(void(^)(NSURLSessionDataTask *, NSArray *))completion {
+    [self.manager POST:url parameters:params progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"Success: (POST : %@)", url);
+        completion(task, responseObject);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"Failure: (POST : %@) \nReason: %@", url, error);
+        completion(task, nil);
     }];
 }
 

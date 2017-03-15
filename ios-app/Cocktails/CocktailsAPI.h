@@ -16,4 +16,7 @@
 - (void)getSpirits:(void(^)(NSArray *))completion;
 - (void)getSpiritsInInventoryForEventWithId:(NSInteger)id withPassword:(NSString *)password :(void(^)(NSArray *))completion;
 
+- (void)addSpiritWithId: (NSInteger)spiritId ToInventoryForEventWithId:(NSInteger)eventId withPassword:(NSString *)password :(void (^)(NSURLSessionDataTask *, NSArray *))completion;
+- (void)removeSpiritWithId:(NSInteger)spiritId FromInventoryForEventWithId:(NSInteger)eventId withPassword:(NSString *)password :(void (^)(NSURLSessionDataTask *, NSArray *))completion;
+
 @end
