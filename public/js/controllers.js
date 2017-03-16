@@ -64,13 +64,13 @@ angular.module('cocktails')
 	}
 ])
 
-.controller('AddEventController', ['$scope', 'api',
-	function($scope, api) {
+.controller('AddEventController', ['$scope', '$state', 'api',
+	function($scope, $state, api) {
 
 		$scope.submit = function() {
 			// Do request
 			api.postNewEvent($scope.form.name, $scope.form.description, $scope.form.date, $scope.form.password).then((success) => {
-				console.log("yes");
+				$state.reload();
 			});
 		}
 
