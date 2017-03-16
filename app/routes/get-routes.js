@@ -380,8 +380,9 @@ module.exports = function(router) {
 
                 fiber(function(){
                     let drinks = [];
-                    for (let i = 0; i < rows.length; i++) {
-                        drinks.push(JSON.parse(rows[i].drinks_json)[0].id);
+                    let drinks_json = JSON.parse(rows[0].drinks_json);
+                    for (let i = 0; i < drinks_json.length; i++) {
+                        drinks.push(drinks_json[i].id);
                     }
 
                     if (drinks.length > 0) {
@@ -400,7 +401,7 @@ module.exports = function(router) {
                             query += `
                         		ORDER BY drinks.name ASC;
                         	`;
-                            console.log(query);
+
                         	connection.connect();
                         	connection.query(query, function (err, rows, fields) {
                                 if (err) {
