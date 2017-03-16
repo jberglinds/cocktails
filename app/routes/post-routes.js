@@ -2,6 +2,7 @@
 
 let mysql = require('mysql');
 let database_credentials = require('../../database/database_credentials.json');
+let socket_controller = require('../socket-controller.js');
 
 let sync = require('synchronize');
 let fiber = sync.fiber;
@@ -68,6 +69,7 @@ module.exports = function(router) {
                     console.log(err_print(req.path));
                     console.log(err);
                 } else {
+                    socket_controller.emitSpiritUpdate(req.params.eventId, req.body.spiritId, 'add');
                     res.sendStatus(204);
                 }
             });
@@ -96,6 +98,7 @@ module.exports = function(router) {
                     console.log(err_print(req.path));
                     console.log(err);
                 } else {
+                    socket_controller.emitSpiritUpdate(req.params.eventId, req.body.spiritId, 'remove');
                     res.sendStatus(204);
                 }
             });
@@ -125,6 +128,7 @@ module.exports = function(router) {
                     console.log(err_print(req.path));
                     console.log(err);
                 } else {
+                    socket_controller.emitMixerUpdate(req.params.eventId, req.body.mixerId, 'add');
                     res.sendStatus(204);
                 }
             });
@@ -153,6 +157,7 @@ module.exports = function(router) {
                     console.log(err_print(req.path));
                     console.log(err);
                 } else {
+                    socket_controller.emitMixerUpdate(req.params.eventId, req.body.mixerId, 'remove');
                     res.sendStatus(204);
                 }
             });

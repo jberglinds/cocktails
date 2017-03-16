@@ -97,9 +97,25 @@ angular.module('cocktails')
 .controller('EventController', ['$scope', 'event', 'api',
 	function($scope, event, api) {
 		$scope.event = event.data;
+		updateSpiritInventory();
+		updateMixersInventory();
 
 		$scope.onlyID = '\\d+';
 
+		let socket = io('/events');
+		socket.emit('join', {
+			event_id: $scope.event.id
+		});
+
+		socket.on('spirit_update', (req) => {
+			updateSpiritInventory();
+		});
+
+		socket.on('mixer_update', (req) => {
+			updateMixersInventory();
+		});
+
+		// Used for autocompleting mixers and spirits in add to inventory form
 		$scope.spirits = api.getSpirits().then((response) => {
 			return response.data;
 		});
@@ -107,46 +123,45 @@ angular.module('cocktails')
 			return response.data;
 		});
 
-		function getSpiritsInventory() {
+		function updateSpiritInventory() {
 			api.getSpiritsForEvent($scope.event.id, $scope.event.passphrase).then((response) => {
 				$scope.spiritinventory = response.data;
 			});
 		}
-		getSpiritsInventory();
 
-		function getMixersInventory() {
+		function updateMixersInventory() {
 			api.getMixersForEvent($scope.event.id, $scope.event.passphrase).then((response) => {
 				$scope.mixerinventory = response.data;
 			});
 		}
-		getMixersInventory();
 
-
+		// Called from form
 		$scope.addSpiritToInventory = function(id) {
 			api.postAddSpiritToEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
-				getSpiritsInventory();
 				$scope.spiritID = '';
 				$scope.addSpiritForm.$setPristine();
 			});
 		}
 
+		// Called from form
 		$scope.addMixerToInventory = function(id) {
 			api.postAddMixerToEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
-				getMixersInventory();
 				$scope.mixerID = '';
 				$scope.addMixerForm.$setPristine();
 			});
 		}
 
+		// Called from table button
 		$scope.removeSpiritFromInventory = function(id) {
 			api.postRemoveSpiritFromEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
-				getSpiritsInventory();
+				// success
 			});
 		}
 
+		// Called from table button
 		$scope.removeMixerFromInventory = function(id) {
 			api.postRemoveMixerFromEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
-				getMixersInventory();
+				// success
 			});
 		}
 

@@ -3,7 +3,7 @@
 let express = require('express');
 let http = require('http');
 let bodyParser = require('body-parser');
-// let socketio = require('socket.io');
+let socketio = require('socket.io');
 
 let port = 8080;
 
@@ -17,6 +17,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
+let io = socketio.listen(httpServer);
+let socket_controller = require('./socket-controller.js');
+socket_controller.setup(io);
+console.log(socket_controller);
 
 let router = require('./api-router.js');
 app.use('/api', router);
