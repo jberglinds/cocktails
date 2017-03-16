@@ -220,6 +220,10 @@ express@^4.15.0:
     utils-merge "1.0.0"
     vary "~1.1.0"
 
+fibers@1.0.x:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/fibers/-/fibers-1.0.15.tgz#22f039c8f18b856190fbbe4decf056154c1eae9c"
+
 finalhandler@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/finalhandler/-/finalhandler-1.0.0.tgz#b5691c2c0912092f18ac23e9416bde5cd7dc6755"
@@ -499,6 +503,12 @@ sqlstring@2.2.0:
 string_decoder@~0.10.x:
   version "0.10.31"
   resolved "https://registry.yarnpkg.com/string_decoder/-/string_decoder-0.10.31.tgz#62e203bc41766c6c28c9fc84301dab1c5310fa94"
+
+synchronize@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/synchronize/-/synchronize-2.0.0.tgz#b5eb89964c4bad6e42caa4143cad26cef1edf422"
+  dependencies:
+    fibers "1.0.x"
 
 to-array@0.1.4:
   version "0.1.4"
