@@ -93,6 +93,14 @@ angular.module('cocktails')
 			return response.data;
 		});
 
+		$scope.spiritsInventory = api.getSpiritsForEvent($scope.event.id, $scope.event.passphrase).then((response) => {
+			$scope.spiritinventory = response.data;
+		});
+
+		$scope.mixersInventory = api.getMixersForEvent($scope.event.id, $scope.event.passphrase).then((response) => {
+			$scope.mixerinventory = response.data;
+		});
+
 		$scope.addSpiritToInventory = function(id) {
 			console.log(id);
 			//API call
