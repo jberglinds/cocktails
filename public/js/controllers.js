@@ -6,8 +6,8 @@ angular.module('cocktails')
 	}
 ])
 
-.controller('AddDrinkController', ['$scope', 'api',
-	function($scope, api) {
+.controller('AddDrinkController', ['$scope', '$state', 'api',
+	function($scope, $state, api) {
 		$scope.onlyID = '\\d+';
 
 		$scope.spirits = api.getSpirits().then((response) => {
@@ -25,9 +25,21 @@ angular.module('cocktails')
     	};
 
 		$scope.submit = function() {
-			// Do request
-			console.log($scope.form.spiritIngredient);
+			let spirits = valuesToArray($scope.form.spiritIngredient);
+			let mixers = valuesToArray($scope.form.mixerIngredient);
+			let instructions = valuesToArray($scope.form.instruction);
+			api.postNewDrink($scope.form.name, $scope.form.description, $scope.form.image_url, spirits, mixers, instructions).then((success) => {
+				$state.reload();
+			});
         }
+
+		function valuesToArray(object) {
+			let arr = new Array;
+			for(let key in object) {
+				arr.push(object[key]);
+			}
+			return arr;
+		}
 
 		$scope.cancel = function() {
             $scope.newDrinkForm.$setPristine();
@@ -133,7 +145,6 @@ angular.module('cocktails')
 		}
 
 		$scope.removeMixerFromInventory = function(id) {
-			console.log(id);
 			api.postRemoveMixerFromEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
 				getMixersInventory();
 			});

@@ -32,7 +32,6 @@
 						<div class="form-group">
 							<input type="text" class="form-control" name="name" ng-model="form.name" placeholder="Drink name" required>
 						</div>
-						{{form.image_url}}
 						<div class="form-group">
 							<textarea class="form-control" id="drinkDescription" rows="2" placeholder="Description" ng-model="form.description" required></textarea>
 						</div>
@@ -49,7 +48,7 @@
 						</div>
 						<div class="form-group row no-gutters mb-2 mt-0 pt-0" ng-repeat="i in range(noOfSpirits) track by $index">
 							<div class="col-9 pr-1">
-								<input class="form-control" type="text" ng-model-options="{ allowInvalid: true }" ng-pattern="onlyID" placeholder="Spirit name" ng-model="form.spiritIngredient[$index].name" bs-typeahead auto-select="true" bs-options="spirit.id as spirit.name for spirit in spirits" template-url="views/supports/dropdown-suggestion-template.html" required>
+								<input class="form-control" type="text" ng-model-options="{ allowInvalid: true }" ng-pattern="onlyID" placeholder="Spirit name" ng-model="form.spiritIngredient[$index].id" bs-typeahead auto-select="true" bs-options="spirit.id as spirit.name for spirit in spirits" template-url="views/supports/dropdown-suggestion-template.html" required>
 							</div>
 							<div class="col-3">
 								<input class="form-control" type="text" placeholder="Amount" ng-model="form.spiritIngredient[$index].amount">
@@ -66,7 +65,7 @@
 						</div>
 						<div class="form-group row no-gutters mb-2 mt-0 pt-0" ng-repeat="i in range(noOfMixers) track by $index">
 							<div class="col-9 pr-1">
-								<input class="form-control" type="text" ng-model-options="{ allowInvalid: true }" ng-pattern="onlyID" validity-bind-fix placeholder="Mixer name" ng-model="form.mixerIngredient[$index].name" bs-typeahead auto-select="true" bs-options="mixer.id as mixer.name for mixer in mixers" template-url="views/supports/dropdown-suggestion-template.html" required>
+								<input class="form-control" type="text" ng-model-options="{ allowInvalid: true }" ng-pattern="onlyID" validity-bind-fix placeholder="Mixer name" ng-model="form.mixerIngredient[$index].id" bs-typeahead auto-select="true" bs-options="mixer.id as mixer.name for mixer in mixers" template-url="views/supports/dropdown-suggestion-template.html" required>
 							</div>
 							<div class="col-3">
 								<input class="form-control" type="text" placeholder="Amount" ng-model="form.mixerIngredient[$index].amount">
