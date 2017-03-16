@@ -3,6 +3,7 @@ angular.module('cocktails')
 .controller('DrinksController', ['$scope', 'drinks', 'api',
 	function($scope, drinks, api) {
 		$scope.drinks = drinks.data;
+		$scope.lead = "All drinks currently available on Cocktails.";
 	}
 ])
 
@@ -165,5 +166,21 @@ angular.module('cocktails')
 			});
 		}
 
+		// Called from button in header
+		$scope.updateDrinklist = function() {
+			api.postUpdateDrinklist($scope.event.id, $scope.event.passphrase).then((success) => {
+				// success
+			});
+		}
+
+	}
+])
+
+.controller('EventDrinksController', ['$scope', 'event', 'drinks',
+	function($scope, event, drinks) {
+		$scope.drinks = drinks.data;
+
+		$scope.isEvent = true;
+		$scope.lead = event.name;
 	}
 ]);

@@ -10,7 +10,6 @@
                 <th>Name</th>
                 <th>Date</th>
                 <th class="button-col">Drinks</th>
-                <th class="button-col">Splash</th>
                 <th>Administer</th>
             </tr>
         </thead>
@@ -18,8 +17,7 @@
             <tr ng-repeat="event in events | filter:searchfilter">
                 <th>{{ event.name }}</th>
                 <td>{{ event.start_date | date }}</td>
-                <td><button type="button" class="btn btn-outline-primary btn-sm">Drinks</button></td>
-                <td><button type="button" class="btn btn-outline-primary btn-sm">Splash</button></td>
+                <td><button type="button" class="btn btn-outline-primary btn-sm" ui-sref="eventDrinks({ id: event.id })">Drinks</button></td>
                 <td>
                     <form class="input-group" name="administrateEventForm">
                         <input type="text" class="form-control form-control-sm" ng-model="eventPassword" placeholder="Password" autocomplete="off" required>

@@ -39,6 +39,10 @@ angular.module('cocktails.api', [])
 			});
 		}
 
+		function getEventDrinklist(id) {
+			return $http.get("/api/events/"+id+"/drinklist");
+		}
+
 		function postNewDrink(name, description, image_url, spirits, mixers, instructions) {
 			return $http.post("/api/drinks/add", {
 				name: name,
@@ -55,6 +59,12 @@ angular.module('cocktails.api', [])
 				name: name,
 				description, description,
 				date: date,
+				passphrase: password
+			});
+		}
+
+		function postUpdateDrinklist(eventId, password) {
+			return $http.post("/api/events/"+eventId+"/update-drinklist", {
 				passphrase: password
 			});
 		}
@@ -120,9 +130,11 @@ angular.module('cocktails.api', [])
 			getMixersForEvent, getMixersForEvent,
 			getEvents: getEvents,
 			getEvent: getEvent,
+			getEventDrinklist: getEventDrinklist,
 
 			postNewEvent: postNewEvent,
 			postNewDrink: postNewDrink,
+			postUpdateDrinklist: postUpdateDrinklist,
 			postAddSpiritToEvent: postAddSpiritToEvent,
 			postAddMixerToEvent: postAddMixerToEvent,
 			postRemoveSpiritFromEvent: postRemoveSpiritFromEvent,

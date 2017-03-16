@@ -87,6 +87,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
         }
     }
 
+    let eventDrinks = {
+        name: 'eventDrinks',
+        url: '/events/:id/drinks',
+        templateUrl: 'views/drinks.html',
+        controller: 'EventDrinksController',
+        resolve: {
+            event: function(api, $stateParams) {
+                return api.getEvents().then((response) => {
+                    for (event of response.data) {
+                        if (event.id == $stateParams.id) {
+                            return event;
+                        }
+                    }
+                });
+            },
+            drinks: function(api, $stateParams) {
+                return api.getEventDrinklist($stateParams.id);
+            }
+        }
+    }
+
     $stateProvider.state(welcome);
     $stateProvider.state(drinks);
     $stateProvider.state(drink);
@@ -94,6 +115,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider.state(mixers);
     $stateProvider.state(events);
     $stateProvider.state(event);
+    $stateProvider.state(eventDrinks);
 
     $urlRouterProvider.otherwise('/')
 });
