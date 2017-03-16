@@ -3,6 +3,11 @@
 let mysql = require('mysql');
 let database_credentials = require('../../database/database_credentials.json');
 
+let sync = require('synchronize');
+let fiber = sync.fiber;
+let wait = sync.await;
+let defer = sync.defer;
+
 /*
 * API end-points for GET requests
 */
@@ -348,6 +353,72 @@ module.exports = function(router) {
                 console.log(err);
             } else {
                 res.send(rows);
+            }
+        });
+        connection.end();
+    });
+
+    /*
+    * GET /events/:eventId/drinklist
+    * Returns the drinklist associated with the event, if there is one
+    * id
+    */
+    router.get('/events/:eventId(\\d+)/drinklist', function(req, res) {
+        let connection = mysql.createConnection(database_credentials);
+        let query = `
+             SELECT event_drinklist.drinks_json
+             FROM event_drinklist
+             WHERE event_drinklist.event_id=${req.params.eventId};
+        `;
+        connection.connect();
+        connection.query(query, function (err, rows, fields) {
+            if (err) {
+                res.sendStatus(500);
+                console.log(err_print(req.path));
+                console.log(err);
+            } else {
+
+                fiber(function(){
+                    let drinks = [];
+                    for (let i = 0; i < rows.length; i++) {
+                        drinks.push(JSON.parse(rows[i].drinks_json)[0].id);
+                    }
+
+                    if (drinks.length > 0) {
+                        wait((function(drinks, callback){
+                            let connection = mysql.createConnection(database_credentials);
+                        	let query = `
+                        		SELECT drinks.id, drinks.name, drinks.image_url, drinks.spirits_json
+                        		FROM drinks
+                                WHERE drinks.id=${drinks[0]}
+                            `;
+
+                            for (let i = 1; i < drinks.length; i++) {
+                                query += ` OR drinks.id=${drinks[i]}`;
+                            }
+
+                            query += `
+                        		ORDER BY drinks.name ASC;
+                        	`;
+                            console.log(query);
+                        	connection.connect();
+                        	connection.query(query, function (err, rows, fields) {
+                                if (err) {
+                                    res.sendStatus(500);
+                                    console.log(err_print(req.path));
+                                    console.log(err);
+                                } else {
+                            		res.send(rows);
+                                }
+                                callback();
+                        	});
+                        	connection.end();
+                        })(drinks, defer()));
+                    } else {
+                        res.json([]);
+                    }
+                });
+
             }
         });
         connection.end();
