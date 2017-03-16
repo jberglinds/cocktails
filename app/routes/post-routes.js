@@ -347,6 +347,191 @@ module.exports = function(router) {
         }
     });
 
+    /*
+    * POST /events/:eventId/update-drinklist
+    * passphrase as post-parameter, eventId as url parameter
+    */
+    router.post('/events/:eventId(\\d+)/update-drinklist', function(req, res) {
+
+        let connection = mysql.createConnection(database_credentials);
+        let query = `
+            SELECT drinks.id, drinks.name, drinks.spirits_json, drinks.mixers_json
+            FROM drinks;
+        `;
+        connection.connect();
+        connection.query(query, function (err, drinks_rows, fields) {
+            if (err) {
+                res.sendStatus(500);
+                console.log(err_print(req.path));
+                console.log(err);
+            } else {
+                let drinklist = [];
+                fiber(function() {
+                    wait(populateDrinkList(drinklist, drinks_rows, req.params.eventId, defer()));
+                    wait(storeDrinkList(drinklist, req.params.eventId, defer()));
+                });
+                res.sendStatus(202);
+            }
+        });
+        connection.end();
+
+        function populateDrinkList(drinklist, drinks, eventId, callback) {
+
+            let inventory = {};
+            wait(fetch_spiritInventory(inventory, eventId, defer()));
+            wait(fetch_mixerInventory(inventory, eventId, defer()));
+            wait(fetch_baseSpiritsInventory(inventory, eventId, defer()));
+
+            for (let i = 0; i < drinks.length; i++) {
+                let drink_parts = {spirits_valid: true, mixers_valid: true};
+                wait(addSpirits(drink_parts, JSON.parse(drinks[i].spirits_json), inventory, defer()));
+                wait(addMixers(drink_parts, JSON.parse(drinks[i].mixers_json), inventory, defer()));
+                if (drink_parts.spirits_valid && drink_parts.mixers_valid) {
+                    drinklist.push({
+                        id: drinks[i].id,
+                        name: drinks[i].name
+                    });
+                }
+            }
+            callback();
+        }
+
+        function addSpirits(drink, spirits, inventory, callback) {
+            console.log(inventory.base_spirits);
+            for (let i = 0; i < spirits.length; i++) {
+                if (spirits[i].spirit === undefined) {
+                    // Only base spirit
+                    wait((function(callback) {
+                        if (drink.spirits_valid && !array_has(inventory.base_spirits, spirits[i].base_spirit.id)) {
+                            drink.spirits_valid = false;
+                        }
+                        callback();
+                    })(defer()));
+                } else {
+                    // Specific spirit
+                    wait((function(callback) {
+                        if (drink.spirits_valid && !array_has(inventory.spirits, spirits[i].spirit)) {
+                            drink.spirits_valid = false;
+                        }
+                        callback();
+                    })(defer()));
+                }
+            }
+            callback();
+        }
+
+        function addMixers(drink, mixers, inventory, callback) {
+            console.log(inventory.mixers);
+            for (let i = 0; i < mixers.length; i++) {
+                wait((function(callback) {
+                    if (drink.mixers_valid && !array_has(inventory.mixers, mixers[i].mixer)) {
+                        drink.mixers_valid = false;
+                    }
+                    callback();
+                })(defer()));
+            }
+            callback();
+        }
+
+        function fetch_spiritInventory(inventory, eventId, callback) {
+            let connection = mysql.createConnection(database_credentials);
+            let query = `
+                SELECT spirits.id, spirits.name
+                FROM inventory_spirits
+                JOIN spirits
+                ON inventory_spirits.spirit_id=spirits.id
+                WHERE inventory_spirits.event_id=${eventId};
+            `;
+            connection.connect();
+            connection.query(query, function (err, rows, fields) {
+                if (err) {
+                    console.log(err_print(req.path));
+                    console.log(err);
+                }
+                inventory.spirits = JSON.parse(JSON.stringify(rows));
+                callback();
+            });
+            connection.end();
+        };
+
+        function fetch_mixerInventory(inventory, eventId, callback) {
+            let connection = mysql.createConnection(database_credentials);
+            let query = `
+                SELECT mixers.id, mixers.name
+                FROM inventory_mixers
+                JOIN mixers
+                ON inventory_mixers.mixer_id=mixers.id
+                WHERE inventory_mixers.event_id=${eventId};
+            `;
+            connection.connect();
+            connection.query(query, function (err, rows, fields) {
+                if (err) {
+                    console.log(err_print(req.path));
+                    console.log(err);
+                }
+                inventory.mixers = JSON.parse(JSON.stringify(rows));
+                callback();
+            });
+            connection.end();
+        };
+
+        function fetch_baseSpiritsInventory(inventory, eventId, callback) {
+            let connection = mysql.createConnection(database_credentials);
+            let query = `
+                SELECT DISTINCT spirits.type_of_liqour AS type
+                FROM inventory_spirits
+                JOIN spirits
+                ON inventory_spirits.spirit_id=spirits.id
+                WHERE inventory_spirits.event_id=${eventId}
+            `;
+            connection.connect();
+            connection.query(query, function (err, rows, fields) {
+                if (err) {
+                    console.log(err_print(req.path));
+                    console.log(err);
+                }
+                inventory.base_spirits = [];
+                for (let i = 0; i < rows.length; i++) {
+                    let obj = JSON.parse(JSON.stringify(rows[i]));
+                    for (let key in obj) {
+                        inventory.base_spirits.push(obj[key]);
+                    }
+                };
+                callback();
+            });
+            connection.end();
+        };
+
+        function array_has(array, object) {
+            for (let i = 0; i < array.length; i++) {
+                if (JSON.stringify(array[i]) == JSON.stringify(object)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function storeDrinkList(drinklist, eventId, callback) {
+            let connection = mysql.createConnection(database_credentials);
+            let query = `
+                INSERT INTO event_drinklist
+                    (event_id, drinks_json)
+                VALUES
+                    (${eventId}, "${JSON.stringify(drinklist).replace(new RegExp('"', 'g'), '\\"')}")
+                ON DUPLICATE KEY UPDATE drinks_json="${JSON.stringify(drinklist).replace(new RegExp('"', 'g'), '\\"')}";
+            `;
+            connection.connect();
+            connection.query(query, function (err, rows, fields) {
+                if (err) {
+                    console.log(err_print(req.path));
+                    console.log(err);
+                }
+            });
+            connection.end();
+            callback();
+        }
+
+    });
 };
 
 // Format a pretty print error message

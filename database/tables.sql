@@ -69,3 +69,11 @@ create table inventory_mixers (
     foreign key (event_id) references events(id),
     foreign key (mixer_id) references mixers(id)
 ) default charset=utf8;
+
+drop table if exists event_drinklist;
+create table event_drinklist (
+    event_id int not null,
+    drinks_json text not null,
+    primary key (event_id),
+    foreign key (event_id) references events(id)
+) default charset=utf8;
