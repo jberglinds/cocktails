@@ -23,7 +23,7 @@
 					<h4 class="mt-2">Spirits</h4>
 				</li>
 				<li class="list-group-item justify-content-between" ng-repeat="spirit in drink.spirits_json">
-					{{ spirit.base_spirit.name }}
+					{{ spirit.spirit ? spirit.spirit.name : spirit.base_spirit.name }}
 					<span class="badge badge-primary badge-pill">{{ spirit.amount }}</span>
 				</li>
 			</ul>
