@@ -93,25 +93,35 @@ angular.module('cocktails')
 			return response.data;
 		});
 
-		$scope.spiritsInventory = api.getSpiritsForEvent($scope.event.id, $scope.event.passphrase).then((response) => {
-			$scope.spiritinventory = response.data;
-		});
+		function getSpiritsInventory() {
+			api.getSpiritsForEvent($scope.event.id, $scope.event.passphrase).then((response) => {
+				$scope.spiritinventory = response.data;
+			});
+		}
+		getSpiritsInventory();
 
-		$scope.mixersInventory = api.getMixersForEvent($scope.event.id, $scope.event.passphrase).then((response) => {
-			$scope.mixerinventory = response.data;
-		});
+		function getMixersInventory() {
+			api.getMixersForEvent($scope.event.id, $scope.event.passphrase).then((response) => {
+				$scope.mixerinventory = response.data;
+			});
+		}
+		getMixersInventory();
+
 
 		$scope.addSpiritToInventory = function(id) {
-			console.log(id);
-			//API call
-			$scope.spiritID = '';
-			$scope.addSpiritForm.$setPristine();
+			api.postAddSpiritToEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
+				getSpiritsInventory();
+				$scope.spiritID = '';
+				$scope.addSpiritForm.$setPristine();
+			});
 		}
 
 		$scope.addMixerToInventory = function(id) {
-			console.log(id);
-			$scope.mixerID = '';
-			$scope.addMixerForm.$setPristine();
+			api.postAddMixerToEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
+				getMixersInventory();
+				$scope.mixerID = '';
+				$scope.addMixerForm.$setPristine();
+			});
 		}
 
 	}

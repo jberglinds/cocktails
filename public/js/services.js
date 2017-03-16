@@ -39,7 +39,24 @@ angular.module('cocktails.api', [])
 			});
 		}
 
-		// postAddSpiritToEvent(eventId, password, spiritId) {
+		function postAddSpiritToEvent(eventId, password, spiritId) {
+			let requestData = {
+				spiritId: spiritId,
+				passphrase: password
+			}
+			return $http.post("/api/events/"+eventId+"/add-spirit", requestData);
+		}
+
+		function postAddMixerToEvent(eventId, password, mixerId) {
+			let requestData = {
+				mixerId: mixerId,
+				passphrase: password
+			}
+			return $http.post("/api/events/"+eventId+"/add-mixer", requestData);
+		}
+
+
+		// function postNewDrink(name, description, image_url, spirits, mixers, instructions) {
 		// 	let requestData = {
 		// 		name: name,
 		// 		description: description,
@@ -48,43 +65,37 @@ angular.module('cocktails.api', [])
 		// 		mixers: mixers,
 		// 		instructions: instructions
 		// 	}
+		// 	return $http.get("/api/newDrink", requestData);
 		// }
-
-
-		function postNewDrink(name, description, image_url, spirits, mixers, instructions) {
-			let requestData = {
-				name: name,
-				description: description,
-				image_url: image_url,
-				spirits: spirits,
-				mixers: mixers,
-				instructions: instructions
-			}
-			return $http.get("/api/newDrink", requestData);
-		}
-
-		function postNewEvent(name, description, date, password) {
-			let requestData = {
-				name: name,
-				description: description,
-				date: date,
-				password: password
-			}
-			return $http.get("/api/newEvent", requestData);
-		}
+		//
+		// function postNewEvent(name, description, date, password) {
+		// 	let requestData = {
+		// 		name: name,
+		// 		description: description,
+		// 		date: date,
+		// 		password: password
+		// 	}
+		// 	return $http.get("/api/newEvent", requestData);
+		// }
 
 		// Public for service
 		return {
 			getDrinks: getDrinks,
 			getDrink: getDrink,
+
 			getSpirits: getSpirits,
 			getSpiritsForEvent: getSpiritsForEvent,
+
 			getMixers: getMixers,
 			getMixersForEvent, getMixersForEvent,
+
 			getEvents: getEvents,
 			getEvent: getEvent,
-			postNewDrink: postNewDrink,
-			postNewEvent: postNewEvent
+
+			postAddSpiritToEvent: postAddSpiritToEvent,
+			postAddMixerToEvent: postAddMixerToEvent,
+			// postNewDrink: postNewDrink,
+			// postNewEvent: postNewEvent
 		};
 	}
 ]);
