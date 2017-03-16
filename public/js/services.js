@@ -55,6 +55,22 @@ angular.module('cocktails.api', [])
 			return $http.post("/api/events/"+eventId+"/add-mixer", requestData);
 		}
 
+		function postRemoveSpiritFromEvent(eventId, password, spiritId) {
+			let requestData = {
+				spiritId: spiritId,
+				passphrase: password
+			}
+			return $http.post("/api/events/"+eventId+"/remove-spirit", requestData);
+		}
+
+		function postRemoveMixerFromEvent(eventId, password, mixerId) {
+			let requestData = {
+				mixerId: mixerId,
+				passphrase: password
+			}
+			return $http.post("/api/events/"+eventId+"/remove-mixer", requestData);
+		}
+
 
 		// function postNewDrink(name, description, image_url, spirits, mixers, instructions) {
 		// 	let requestData = {
@@ -94,6 +110,8 @@ angular.module('cocktails.api', [])
 
 			postAddSpiritToEvent: postAddSpiritToEvent,
 			postAddMixerToEvent: postAddMixerToEvent,
+			postRemoveSpiritFromEvent: postRemoveSpiritFromEvent,
+			postRemoveMixerFromEvent: postRemoveMixerFromEvent
 			// postNewDrink: postNewDrink,
 			// postNewEvent: postNewEvent
 		};

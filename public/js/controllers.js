@@ -124,5 +124,18 @@ angular.module('cocktails')
 			});
 		}
 
+		$scope.removeSpiritFromInventory = function(id) {
+			api.postRemoveSpiritFromEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
+				getSpiritsInventory();
+			});
+		}
+
+		$scope.removeMixerFromInventory = function(id) {
+			console.log(id);
+			api.postRemoveMixerFromEvent($scope.event.id, $scope.event.passphrase, id).then((success) => {
+				getMixersInventory();
+			});
+		}
+
 	}
 ]);
