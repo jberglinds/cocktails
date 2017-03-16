@@ -39,36 +39,41 @@ angular.module('cocktails.api', [])
 			});
 		}
 
+		function postNewEvent(name, description, date, password) {
+			return $http.post("/api/events/add", {
+				name: name,
+				description, description,
+				date: date,
+				passphrase: password
+			});
+		}
+
 		function postAddSpiritToEvent(eventId, password, spiritId) {
-			let requestData = {
+			return $http.post("/api/events/"+eventId+"/add-spirit", {
 				spiritId: spiritId,
 				passphrase: password
-			}
-			return $http.post("/api/events/"+eventId+"/add-spirit", requestData);
+			});
 		}
 
 		function postAddMixerToEvent(eventId, password, mixerId) {
-			let requestData = {
+			return $http.post("/api/events/"+eventId+"/add-mixer", {
 				mixerId: mixerId,
 				passphrase: password
-			}
-			return $http.post("/api/events/"+eventId+"/add-mixer", requestData);
+			});
 		}
 
 		function postRemoveSpiritFromEvent(eventId, password, spiritId) {
-			let requestData = {
+			return $http.post("/api/events/"+eventId+"/remove-spirit", {
 				spiritId: spiritId,
 				passphrase: password
-			}
-			return $http.post("/api/events/"+eventId+"/remove-spirit", requestData);
+			});
 		}
 
 		function postRemoveMixerFromEvent(eventId, password, mixerId) {
-			let requestData = {
+			return $http.post("/api/events/"+eventId+"/remove-mixer", {
 				mixerId: mixerId,
 				passphrase: password
-			}
-			return $http.post("/api/events/"+eventId+"/remove-mixer", requestData);
+			});
 		}
 
 
@@ -98,16 +103,14 @@ angular.module('cocktails.api', [])
 		return {
 			getDrinks: getDrinks,
 			getDrink: getDrink,
-
 			getSpirits: getSpirits,
 			getSpiritsForEvent: getSpiritsForEvent,
-
 			getMixers: getMixers,
 			getMixersForEvent, getMixersForEvent,
-
 			getEvents: getEvents,
 			getEvent: getEvent,
 
+			postNewEvent: postNewEvent,
 			postAddSpiritToEvent: postAddSpiritToEvent,
 			postAddMixerToEvent: postAddMixerToEvent,
 			postRemoveSpiritFromEvent: postRemoveSpiritFromEvent,

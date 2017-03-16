@@ -69,7 +69,9 @@ angular.module('cocktails')
 
 		$scope.submit = function() {
 			// Do request
-			console.log($scope.form);
+			api.postNewEvent($scope.form.name, $scope.form.description, $scope.form.date, $scope.form.password).then((success) => {
+				console.log("yes");
+			});
 		}
 
 		$scope.cancel = function() {
