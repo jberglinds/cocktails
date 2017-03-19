@@ -23,7 +23,6 @@ app.use(bodyParser.urlencoded({
 let io = socketio.listen(httpServer);
 let socket_controller = require('./socket-controller.js');
 socket_controller.setup(io);
-console.log(socket_controller);
 
 let router = require('./api-router.js');
 app.use('/api', router);
