@@ -1,11 +1,13 @@
 "use strict";
 
+require('dotenv').config();
+
 let express = require('express');
 let http = require('http');
 let bodyParser = require('body-parser');
 let socketio = require('socket.io');
 
-let port = 8080;
+let port = process.env.PORT || 8080;
 
 let app = express();
 app.use(express.static(__dirname + '/../public'));

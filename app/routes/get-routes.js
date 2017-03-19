@@ -1,7 +1,12 @@
 "use strict";
 
 let mysql = require('mysql');
-let database_credentials = require('../../database/database_credentials.json');
+let database_credentials = {
+    host: process.env.MYSQL_HOST,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    database: process.env.MYSQL_DB
+};
 
 let sync = require('synchronize');
 let fiber = sync.fiber;
